@@ -3,6 +3,5 @@ module "network" {
   for_each = var.vpc
   vpc      = each.value["cidr"]
   name     = each.value["name"]
-
 }
 
