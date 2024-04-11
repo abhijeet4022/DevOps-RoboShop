@@ -1,6 +1,6 @@
 module "network" {
-  source = "../module/tf-module-vpc"
+  source   = "../module/tf-module-vpc"
   for_each = var.vpc
-  vpc = each.value["cidr"]
+  vpc      = each.value["cidr"]
 }
 
