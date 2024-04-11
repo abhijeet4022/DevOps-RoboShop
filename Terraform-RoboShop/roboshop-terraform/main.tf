@@ -1,5 +1,6 @@
-module "components" {
+module "network" {
   source = "../module/tf-module-vpc"
-  vpc = var.vpc
+  for_each = var.vpc
+  vpc = each.value["cidr"]
 }
 
