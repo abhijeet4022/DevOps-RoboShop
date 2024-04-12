@@ -11,5 +11,5 @@ module "vpc" {
 
 
 output "subnets" {
-  value = var.vpc
+  value = var.vpc["roboshop-vpc"]
 }
