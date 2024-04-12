@@ -24,6 +24,15 @@ resource "aws_route_table_association" "main" {
   route_table_id = lookup(lookup(aws_route_table.main, each.key, null), "id", null)
 }
 
+
+
+
+
+
+
+
+
+
 # We are using lookup function to find out the subnet and RT table id because both resources will generate the attribute and from those attribute we have to find out the values.
 
 
