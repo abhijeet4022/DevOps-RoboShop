@@ -8,7 +8,9 @@ resource "aws_vpc" "main" {
 
 module "subnets" {
   source   = "./subnets"
+# so there are subnet it will iterate three time
   for_each = var.all_subnets
+# Every subnet having again two subnet so total six it will consider all six subnets.
   subnets  = each.value
   vpc_id   = aws_vpc.main.id
 }

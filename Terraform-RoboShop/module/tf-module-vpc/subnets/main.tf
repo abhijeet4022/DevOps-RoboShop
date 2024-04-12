@@ -1,4 +1,5 @@
 resource "aws_subnet" "main" {
+  # And finally it will iterate 6 times to create 6 subnets
   for_each          = var.subnets
   vpc_id            = var.vpc_id
   cidr_block        = each.value["cidr"]
