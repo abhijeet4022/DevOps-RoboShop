@@ -10,6 +10,7 @@ module "subnets" {
   source = "./subnets"
   for_each = var.all_subnets
   subnets = each.value
+  vpc_id = aws_vpc.main.id
 }
 
 
