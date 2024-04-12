@@ -6,8 +6,13 @@ resource "aws_vpc" "main" {
   }
 }
 
-#module "subnets" {
-#  source = "./subnets"
-#  for_each = var.subnets
-#  subnets = each.value
-#}
+module "subnets" {
+  source = "./subnets"
+  for_each = var.all_subnets
+  subnets = each.value
+}
+
+
+output "all_subnets" {
+  value = var.all_subnets
+}
