@@ -1,0 +1,3 @@
+How we created the Subnets.
+
+In env-dev/main.tfvars we've declare the values then in main.tf  "for_each = var.vpc" is iterating based on vpc name and then "all_subnets = each.value["subnets"]" this all_subnets is taking all the subnets details and in root module we are accepting these subnets so here 3 main subnets public app db. again there are values are there so we are creating sub module and passing these 6 subnets by using for_each = var.all-subnets accepting the value and subnets=each.value is kepping the rest data and sending to local module by this there are 6 subnets details and we are creating 6 subnets.
