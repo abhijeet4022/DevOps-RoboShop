@@ -5,7 +5,7 @@ module "vpc" {
   vpc_name     = each.value["vpc_name"]
   project_name = var.project_name
 
-  subnets      = each.value["subnets"]
+#  subnets      = each.value["subnets"]
 }
 
 
