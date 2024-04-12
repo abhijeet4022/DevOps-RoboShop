@@ -1,3 +1,3 @@
 variable "vpc" {}
-variable "cidr" {}
+#variable "cidr" {}
 variable "project_name" {}
