@@ -14,6 +14,6 @@ module "subnets" {
 }
 
 
-output "all_subnets" {
-  value = var.all_subnets
-}
+#output "all_subnets" {
+#  value = var.all_subnets
+#}
