@@ -11,5 +11,5 @@ module "vpc" {
 
 
 output "subnets" {
-  value = var.vpc["subnets"]
+  value = var.vpc
 }
