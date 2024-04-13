@@ -34,17 +34,18 @@ resource "aws_eip" "ngw" {
   domain = "vpc"
 }
 
-resource "aws_nat_gateway" "nwg" {
+resource "aws_nat_gateway" "ngw" {
   count         = length(local.public_subnet_ids)
+  # This will fetch the two EIP from above.
   allocation_id = element(aws_eip.ngw.*.id, count.index)
   subnet_id     = element(local.public_subnet_ids, count.index)
 }
 
 resource "aws_route" "ngw" {
-  count                  = length(local.private_subnet_ids)
-  route_table_id         = element(local.private_subnet_ids, count.index)
+  count                  = length(local.private_route_table_id)
+  route_table_id         = element(local.private_route_table_id, count.index)
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = element(aws_nat_gateway.nwg.*.id, count.index)
+  nat_gateway_id         = element(aws_nat_gateway.ngw.*.id, count.index)
 }
 
 
