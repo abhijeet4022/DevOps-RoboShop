@@ -1,8 +1,7 @@
-project_name = "roboshop"
-default_vpc_id = "vpc-0477f111f08e9073f"
-default_vpc_cidr = "172.31.0.0/16"
+default_vpc_id             = "vpc-0477f111f08e9073f"
+default_vpc_cidr           = "172.31.0.0/16"
 default_vpc_route_table_id = "rtb-05eefcb72f97be251"
-vpc          = {
+vpc                        = {
   roboshop-vpc = {
     cidr     = "10.0.0.0/16"
     vpc_name = "roboshop-vpc"
@@ -24,4 +23,11 @@ vpc          = {
     }
   }
 }
-
+tags = {
+  Company_Name  = "Robot Store"
+  Business_Unit = "E-Commerce"
+  Project_Name  = "RobotShop"
+  Cost_Center   = "ecom-rs"
+  Create_By     = "Terraform"
+}
+env = dev
