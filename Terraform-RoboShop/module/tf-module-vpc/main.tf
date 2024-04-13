@@ -22,12 +22,16 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+resource "aws_route" "igw" {
+  for_each = module.subnets["public"]["route_table_ids"]
+  route_table_id = ""
+}
 
 
 
 
 # To fetch the output of subnets child module output.tf.
-output "subnet" {
+output "subnets" {
   value = module.subnets
 }
 
