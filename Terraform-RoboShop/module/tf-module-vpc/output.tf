@@ -17,6 +17,7 @@ output "private_vpc_id" {
   value = aws_vpc.main.id
 }
 
+# Mendetory for alb
 output "vpc_id" {
   value = aws_vpc.main.id
 }
