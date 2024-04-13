@@ -1,4 +1,5 @@
 project_name = "roboshop"
+default_vpc_id = "vpc-0477f111f08e9073f"
 vpc          = {
   roboshop-vpc = {
     cidr     = "10.0.0.0/16"

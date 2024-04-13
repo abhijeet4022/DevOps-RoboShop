@@ -49,11 +49,8 @@ resource "aws_route" "ngw" {
 }
 
 
-# To fetch the output of subnets child module output.tf.
-#output "subnets" {
-#  value = module.subnets
-#}
+resource "aws_vpc_peering_connection" "main" {
+  peer_vpc_id = aws_vpc.main.id
+  vpc_id      = var.default_vpc_id
+}
 
-#output "all_subnets" {
-#  value = var.all_subnets
-#}
