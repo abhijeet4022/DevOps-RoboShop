@@ -30,4 +30,4 @@ tags = {
   Cost_Center   = "ecom-rs"
   Create_By     = "Terraform"
 }
-env = dev
+env = "dev"
