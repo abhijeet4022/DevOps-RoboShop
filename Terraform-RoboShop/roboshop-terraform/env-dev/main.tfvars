@@ -1,7 +1,10 @@
-default_vpc_id             = "vpc-0477f111f08e9073f"
-default_vpc_cidr           = "172.31.0.0/16"
+default_vpc_id = "vpc-0477f111f08e9073f"
+
+default_vpc_cidr = "172.31.0.0/16"
+
 default_vpc_route_table_id = "rtb-05eefcb72f97be251"
-vpc                        = {
+
+vpc = {
   roboshop-vpc = {
     cidr     = "10.0.0.0/16"
     vpc_name = "roboshop-vpc"
@@ -23,6 +26,7 @@ vpc                        = {
     }
   }
 }
+
 tags = {
   Company_Name  = "Robot Store"
   Business_Unit = "E-Commerce"
@@ -30,4 +34,21 @@ tags = {
   Cost_Center   = "ecom-rs"
   Create_By     = "Terraform"
 }
+
 env = "dev"
+
+alb = {
+  public = {
+    internal           = false
+    load_balancer_type = "application"
+    sg_ingress_cidr    = ["0.0.0.0/0"]
+    sg_port            = 80
+  }
+  private = {
+    internal           = true
+    load_balancer_type = "application"
+    # App subnet resource will talk to each other by LB so need to allow the app subnet and default vpc cidr.
+    sg_ingress_cidr    = ["172.31.0.0/16", "10.0.0.0/16"]
+    sg_port            = 80
+  }
+}
