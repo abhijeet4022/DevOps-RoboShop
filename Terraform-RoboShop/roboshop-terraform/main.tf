@@ -4,8 +4,14 @@ module "vpc" {
   cidr         = each.value["cidr"]
   vpc_name     = each.value["vpc_name"]
   project_name = var.project_name
-# it will all subnets [public, app, web]
-  all_subnets = each.value["subnets"]
+  # it will all subnets [public, app, web]
+  all_subnets  = each.value["subnets"]
+}
+
+
+# This value will come from tf-module-vpc main.tf output block
+output "vpc" {
+  value = module.vpc
 }
 
 
