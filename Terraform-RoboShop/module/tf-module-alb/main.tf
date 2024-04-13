@@ -1,3 +1,4 @@
+# Application Load Balancer
 resource "aws_lb" "main" {
   name               = local.alb_name
   internal           = var.internal
@@ -6,6 +7,9 @@ resource "aws_lb" "main" {
   subnets            = var.subnets
   tags               = merge(local.tags, { Name = local.alb_name })
 }
+
+
+# Security Group Creation
 resource "aws_security_group" "main" {
   name        = local.sg_name
   description = local.sg_name
