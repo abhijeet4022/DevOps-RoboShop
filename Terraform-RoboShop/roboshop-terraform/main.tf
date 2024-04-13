@@ -14,9 +14,9 @@ module "vpc" {
 
 
 # This value will come from tf-module-vpc main.tf output block
-output "vpc" {
-  value = module.vpc
-}
+#output "vpc" {
+#  value = module.vpc
+#}
 
 
 #output "subnets" {

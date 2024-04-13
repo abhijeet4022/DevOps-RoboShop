@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {
   cidr_block = var.cidr
-  tags       = merge(local.tags, {Name = "${var.env}-vpc"})
+  tags       = merge(local.tags, { Name = "${var.env}-vpc" })
 }
 
 module "subnets" {
@@ -10,11 +10,13 @@ module "subnets" {
   # Every subnet having again two subnet so total six it will consider all six subnets.
   subnets  = each.value
   vpc_id   = aws_vpc.main.id
+  env      = var.env
+  tags     = local.tags
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-  tags       = merge(local.tags, {Name = "${var.env}-igw"})
+  tags   = merge(local.tags, { Name = "${var.env}-igw" })
 }
 
 resource "aws_route" "igw" {
@@ -27,7 +29,7 @@ resource "aws_route" "igw" {
 resource "aws_eip" "ngw" {
   count  = length(local.public_subnet_ids)
   domain = "vpc"
-  tags       = merge(local.tags, {Name = "${var.env}-eip-${count.index + 1}"})
+  tags   = merge(local.tags, { Name = "${var.env}-ngw-eip-${count.index + 1}" })
 }
 
 resource "aws_nat_gateway" "ngw" {
@@ -35,7 +37,7 @@ resource "aws_nat_gateway" "ngw" {
   # This will fetch the two EIP from above.
   allocation_id = element(aws_eip.ngw.*.id, count.index)
   subnet_id     = element(local.public_subnet_ids, count.index)
-  tags       = merge(local.tags, {Name = "${var.env}-ngw-element(aws_nat_gateway.ngw.*.name, count.index)"})
+  tags          = merge(local.tags, { Name = "${var.env}-public-ngw-${count.index + 1}" })
 }
 
 resource "aws_route" "ngw" {
@@ -50,6 +52,7 @@ resource "aws_vpc_peering_connection" "main" {
   peer_vpc_id = aws_vpc.main.id
   vpc_id      = var.default_vpc_id
   auto_accept = true
+  tags        = merge(local.tags, { Name = "${var.env}-peering" })
 }
 
 
