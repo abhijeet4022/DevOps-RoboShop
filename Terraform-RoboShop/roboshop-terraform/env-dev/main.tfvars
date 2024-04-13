@@ -1,6 +1,7 @@
 project_name = "roboshop"
 default_vpc_id = "vpc-0477f111f08e9073f"
 default_vpc_cidr = "172.31.0.0/16"
+default_vpc_route_table_id = "rtb-05eefcb72f97be251"
 vpc          = {
   roboshop-vpc = {
     cidr     = "10.0.0.0/16"
