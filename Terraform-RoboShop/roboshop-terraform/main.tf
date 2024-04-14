@@ -37,11 +37,15 @@ module "docdb" {
   tags   = var.tags
   env    = var.env
 
-  for_each         = var.docdb
-  vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
-  app_subnets_cidr = local.app_subnets_cidr
-  engine_family    = each.value["engine_family"]
+  for_each                = var.docdb
+  vpc_id                  = local.vpc_id
+  db_subnets_ids          = local.db_subnets_ids
+  app_subnets_cidr        = local.app_subnets_cidr
+  engine_family           = each.value["engine_family"]
+  backup_retention_period = each.value["backup_retention_period"]
+  preferred_backup_window = each.value["preferred_backup_window"]
+  skip_final_snapshot     = each.value["skip_final_snapshot"]
+  engine_version          = each.value["engine_version"]
 }
 
 
