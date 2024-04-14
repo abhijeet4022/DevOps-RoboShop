@@ -1,18 +1,18 @@
 ## VPC Creation
-#module "vpc" {
-#  source                     = "../module/tf-module-vpc"
-#  for_each                   = var.vpc
-#  cidr                       = each.value["cidr"]
-#  vpc_name                   = each.value["vpc_name"]
-#  # it will all subnets [public, app, web]
-#  all_subnets                = each.value["subnets"]
-#  default_vpc_id             = var.default_vpc_id
-#  default_vpc_cidr           = var.default_vpc_cidr
-#  default_vpc_route_table_id = var.default_vpc_route_table_id
-#  tags                       = var.tags
-#  env                        = var.env
-#}
-#
+module "vpc" {
+  source                     = "../module/tf-module-vpc"
+  for_each                   = var.vpc
+  cidr                       = each.value["cidr"]
+  vpc_name                   = each.value["vpc_name"]
+  # it will all subnets [public, app, web]
+  all_subnets                = each.value["subnets"]
+  default_vpc_id             = var.default_vpc_id
+  default_vpc_cidr           = var.default_vpc_cidr
+  default_vpc_route_table_id = var.default_vpc_route_table_id
+  tags                       = var.tags
+  env                        = var.env
+}
+
 #
 ## ALB Creation
 #module "alb" {
@@ -37,12 +37,10 @@ module "docdb" {
   tags   = var.tags
   env    = var.env
 
-  for_each   = var.docdb
-  vpc_id = local.vpc_id
-  db_sg_ingress_cidr = local.subnet_ids
-
-
-  db_subnets_ids = local.db_subnets_ids
+  for_each         = var.docdb
+  vpc_id           = local.vpc_id
+  db_subnets_ids   = local.db_subnets_ids
+  app_subnets_cidr = local.app_subnets_cidr
 }
 
 
