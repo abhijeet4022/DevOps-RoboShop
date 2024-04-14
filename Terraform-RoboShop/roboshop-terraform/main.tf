@@ -32,7 +32,7 @@ module "alb" {
 
 
 # DocumentDB Creation
-module "alb" {
+module "docdb" {
   source = "../module/tf-module-docdb"
   tags   = var.tags
   env    = var.env
