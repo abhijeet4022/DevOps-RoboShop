@@ -54,5 +54,7 @@ alb = {
 }
 
 docdb = {
-  main = {}
+  main = {
+    engine_family = 4.0.0
+  }
 }
