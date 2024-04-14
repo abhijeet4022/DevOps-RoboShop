@@ -54,5 +54,7 @@ alb = {
 }
 
 docdb = {
-  main = {}
+  main = {
+    db_sg_ingress_cidr =
+  }
 }

@@ -38,7 +38,9 @@ module "docdb" {
   env    = var.env
 
   for_each   = var.docdb
-  subnet_ids = local.subnet_ids
+  subnet_ids = local.db_subnets_ids
+  vpc_id = local.vpc_id
+  db_sg_ingress_cidr = local.subnet_ids
 
 
 }
