@@ -54,5 +54,5 @@ alb = {
 }
 
 docdb = {
-
+  main = {}
 }
