@@ -8,3 +8,7 @@ variable "default_vpc_route_table_id" {}
 
 # ALB Variables
 variable "alb" {}
+
+# DocumentDB
+
+variable "docdb" {}
