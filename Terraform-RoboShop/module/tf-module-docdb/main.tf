@@ -1,11 +1,11 @@
-# Subnet Group creation
+# DocumentDB Subnet Group Creation.
 resource "aws_docdb_subnet_group" "main" {
   name       = "${local.name_prefix}-subnet-group"
   subnet_ids = var.db_subnets_ids
   tags       = merge(local.tags, { Name = "${local.name_prefix}-subnet-group" })
 }
 
-# Security Group creation
+# Security Group Creation.
 resource "aws_security_group" "main" {
   name        = "${local.name_prefix}-sg"
   description = "${local.name_prefix}-sg"

@@ -1,11 +1,11 @@
-# Subnet Group creation
-resource "aws_docdb_subnet_group" "main" {
+# RDS Subnet Group Creation.
+resource "aws_db_subnet_group" "main" {
   name       = "${local.name_prefix}-subnet-group"
   subnet_ids = var.db_subnets_ids
   tags       = merge(local.tags, { Name = "${local.name_prefix}-subnet-group" })
 }
 
-# Security Group creation
+# RDS Security Group Creation.
 resource "aws_security_group" "main" {
   name        = "${local.name_prefix}-sg"
   description = "${local.name_prefix}-sg"
@@ -13,9 +13,9 @@ resource "aws_security_group" "main" {
   tags        = merge(local.tags, { Name = "${local.name_prefix}-sg" })
 
   ingress {
-    description = "DocumentDB"
-    from_port   = "27017"
-    to_port     = "27017"
+    description = "RDS"
+    from_port   = var.sg_port
+    to_port     = var.sg_port
     protocol    = "tcp"
     cidr_blocks = var.app_subnets_cidr
   }
@@ -28,36 +28,36 @@ resource "aws_security_group" "main" {
   }
 }
 
-# Parameter Group creation for database
-resource "aws_docdb_cluster_parameter_group" "main" {
-  family      = var.engine_family
-  name        = "${local.name_prefix}-pg"
-  description = "${local.name_prefix}-pg"
-  tags        = merge(local.tags, { Name = "${local.name_prefix}-pg" })
+# RDS Parameter Group Creation.
+resource "aws_db_parameter_group" "main" {
+  name   = "${local.name_prefix}-pg"
+  family = var.family
+  tags   = "${local.name_prefix}-pg"
 }
 
-# docdb_cluster creation
-resource "aws_docdb_cluster" "main" {
-  cluster_identifier              = "${local.name_prefix}-cluster"
-  engine                          = var.engine
-  engine_version                  = var.engine_version
-  master_username                 = data.aws_ssm_parameter.master_username.value
-  master_password                 = data.aws_ssm_parameter.master_password.value
-  backup_retention_period         = var.backup_retention_period
-  preferred_backup_window         = var.preferred_backup_window
-  skip_final_snapshot             = var.skip_final_snapshot
-  vpc_security_group_ids          = [aws_security_group.main.id]
-  db_subnet_group_name            = aws_docdb_subnet_group.main.name
-  db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.main.name
-  tags                            = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
-
+# RDS_Cluster Creation.
+resource "aws_rds_cluster" "main" {
+  cluster_identifier      = "${local.name_prefix}-cluster"
+  engine                  = var.engine
+  engine_version          = var.engine_version
+  db_subnet_group_name    = aws_db_subnet_group.main.subnet_ids
+  database_name           = var.database_name
+  master_username         = "foo"
+  master_password         = "bar"
+  backup_retention_period = 5
+  preferred_backup_window = "07:00-09:00"
 }
 
 # DocumentDB Cluster Instance Creation.
-resource "aws_docdb_cluster_instance" "main" {
-  count              = var.instance_count
-  identifier         = "${local.name_prefix}-cluster-instance-${count.index}"
-  cluster_identifier = aws_docdb_cluster.main.id
-  instance_class     = var.instance_class
-}
 
+family         = "mysql5.6"
+sg_port        = 3306
+engine         = "aurora-mysql"
+engine_version = "5.7.mysql_aurora.2.11.4"
+
+database_name           = "mydb"
+
+master_username         = "foo"
+master_password         = "bar"
+backup_retention_period = 5
+preferred_backup_window = "07:00-09:00"
