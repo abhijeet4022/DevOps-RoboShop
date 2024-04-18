@@ -34,7 +34,6 @@ resource "aws_security_group" "main" {
 resource "aws_db_parameter_group" "main" {
   name   = "${local.name_prefix}-pg"
   family = var.family
-  tags   = "${local.name_prefix}-pg"
 }
 
 
