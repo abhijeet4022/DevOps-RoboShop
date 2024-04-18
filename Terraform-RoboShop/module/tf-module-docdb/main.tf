@@ -39,7 +39,8 @@ resource "aws_docdb_cluster_parameter_group" "main" {
 # docdb_cluster creation
 resource "aws_docdb_cluster" "main" {
   cluster_identifier              = "${local.name_prefix}-cluster"
-  engine                          = "docdb"
+  engine                          = var.engine
+  engine_version                  = var.engine_version
   master_username                 = data.aws_ssm_parameter.master_username.value
   master_password                 = data.aws_ssm_parameter.master_password.value
   backup_retention_period         = var.backup_retention_period
@@ -48,7 +49,15 @@ resource "aws_docdb_cluster" "main" {
   vpc_security_group_ids          = [aws_security_group.main.id]
   db_subnet_group_name            = aws_docdb_subnet_group.main.name
   db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.main.name
-  engine_version                  = var.engine_version
   tags                            = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
 
 }
+
+# DocumentDB Cluster Instance Creation.
+resource "aws_docdb_cluster_instance" "main" {
+  count              = var.instance_count
+  identifier         = "${local.name_prefix}-cluster-instance-${count.index}"
+  cluster_identifier = aws_docdb_cluster.main.id
+  instance_class     = var.instance_class
+}
+
