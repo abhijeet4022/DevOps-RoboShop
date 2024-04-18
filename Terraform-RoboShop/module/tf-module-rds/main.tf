@@ -39,7 +39,7 @@ resource "aws_docdb_cluster_parameter_group" "main" {
 # docdb_cluster creation
 resource "aws_docdb_cluster" "main" {
   cluster_identifier              = "${local.name_prefix}-cluster"
-  engine                          = "docdb"
+  engine                          = var.engine
   engine_version                  = var.engine_version
   master_username                 = data.aws_ssm_parameter.master_username.value
   master_password                 = data.aws_ssm_parameter.master_password.value
