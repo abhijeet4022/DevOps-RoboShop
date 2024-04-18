@@ -5,6 +5,7 @@ resource "aws_db_subnet_group" "main" {
   tags       = merge(local.tags, { Name = "${local.name_prefix}-subnet-group" })
 }
 
+
 # RDS Security Group Creation.
 resource "aws_security_group" "main" {
   name        = "${local.name_prefix}-sg"
@@ -28,6 +29,7 @@ resource "aws_security_group" "main" {
   }
 }
 
+
 # RDS Parameter Group Creation.
 resource "aws_db_parameter_group" "main" {
   name   = "${local.name_prefix}-pg"
@@ -35,29 +37,30 @@ resource "aws_db_parameter_group" "main" {
   tags   = "${local.name_prefix}-pg"
 }
 
+
 # RDS_Cluster Creation.
 resource "aws_rds_cluster" "main" {
-  cluster_identifier      = "${local.name_prefix}-cluster"
-  engine                  = var.engine
-  engine_version          = var.engine_version
-  db_subnet_group_name    = aws_db_subnet_group.main.subnet_ids
-  database_name           = var.database_name
-  master_username         = "foo"
-  master_password         = "bar"
-  backup_retention_period = 5
-  preferred_backup_window = "07:00-09:00"
+  cluster_identifier               = "${local.name_prefix}-cluster"
+  engine                           = var.engine
+  engine_version                   = var.engine_version
+  db_subnet_group_name             = aws_db_subnet_group.main.name
+  database_name                    = data.aws_ssm_parameter.database_name.value
+  master_username                  = data.aws_ssm_parameter.master_username.value
+  master_password                  = data.aws_ssm_parameter.master_password.value
+  backup_retention_period          = var.backup_retention_period
+  preferred_backup_window          = var.preferred_backup_window
+  db_instance_parameter_group_name = aws_db_parameter_group.main.name
+  vpc_security_group_ids           = [aws_security_group.main.id]
+  skip_final_snapshot              = var.skip_final_snapshot
+  tags                             = merge(local.tags, { Name = "${local.name_prefix}-cluster" })
 }
 
 # DocumentDB Cluster Instance Creation.
-
-family         = "mysql5.6"
-sg_port        = 3306
-engine         = "aurora-mysql"
-engine_version = "5.7.mysql_aurora.2.11.4"
-
-database_name           = "mydb"
-
-master_username         = "foo"
-master_password         = "bar"
-backup_retention_period = 5
-preferred_backup_window = "07:00-09:00"
+resource "aws_rds_cluster_instance" "main" {
+  count              = var.instance_count
+  identifier         = "${local.name_prefix}-cluster-instance-${count.index+1}"
+  cluster_identifier = aws_rds_cluster.main.id
+  instance_class     = var.instance_class
+  engine             = aws_rds_cluster.main.engine
+  engine_version     = aws_rds_cluster.main.engine_version
+}

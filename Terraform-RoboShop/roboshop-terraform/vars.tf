@@ -12,3 +12,7 @@ variable "alb" {}
 # DocumentDB
 
 variable "docdb" {}
+
+# Aurora_MYSQL
+
+variable "rds" {}
