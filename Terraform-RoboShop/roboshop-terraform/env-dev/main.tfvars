@@ -70,6 +70,7 @@ rds = {
   main = {
     family                  = "mysql5.6"
     sg_port                 = 3306
+    rds_type                = "aurora-mysql"
     engine                  = "aurora-mysql"
     engine_version          = "5.7.mysql_aurora.2.11.4"
     backup_retention_period = 5
