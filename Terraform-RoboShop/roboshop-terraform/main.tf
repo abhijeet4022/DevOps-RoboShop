@@ -71,3 +71,24 @@ module "rds" {
   sg_port                 = each.value["sg_port"]
   skip_final_snapshot     = each.value["skip_final_snapshot"]
 }
+
+# ElastiCache Cluster Creation.
+module "elasticache" {
+  source = "../module/tf-module-elasticache"
+  tags   = var.tags
+  env    = var.env
+
+  for_each                = var.elasticache
+  vpc_id                  = local.vpc_id
+  db_subnets_ids          = local.db_subnets_ids
+  app_subnets_cidr        = local.app_subnets_cidr
+
+  elasticache_type        = each.value["elasticache_type"]
+  engine                  = each.value["engine"]
+  engine_version          = each.value["engine_version"]
+  family                  = each.value["family"]
+  node_type               = each.value["node_type"]
+  num_cache_nodes         = each.value["num_cache_nodes"]
+  sg_port                 = each.value["sg_port"]
+}
+

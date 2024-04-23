@@ -80,3 +80,17 @@ rds = {
     instance_class          = "db.t3.small"
   }
 }
+
+elasticache = {
+  main = {
+    skip_final_snapshot     = true
+    elasticache_type        = "redis"
+    engine                  = "redis"
+    engine_version          = "6.2"
+    family                  = "redis6.x"
+    node_type               = "cache.t3.micro"
+    num_cache_nodes         = 1
+    sg_port                 = 6379
+  }
+}
+

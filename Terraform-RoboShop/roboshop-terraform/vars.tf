@@ -16,3 +16,7 @@ variable "docdb" {}
 # Aurora_MYSQL
 
 variable "rds" {}
+
+
+# elasticache
+variable "elasticache" {}
