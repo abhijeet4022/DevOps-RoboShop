@@ -4,6 +4,18 @@ default_vpc_cidr = "172.31.0.0/16"
 
 default_vpc_route_table_id = "rtb-05eefcb72f97be251"
 
+tags = {
+  Company_Name  = "Robot Store"
+  Business_Unit = "E-Commerce"
+  Project_Name  = "RobotShop"
+  Cost_Center   = "ecom-rs"
+  Create_By     = "Terraform"
+}
+
+env = "dev"
+
+zone_id = "Z09678453PONOT92KJ2ZM"
+
 vpc = {
   main = {
     cidr     = "10.0.0.0/16"
@@ -27,15 +39,7 @@ vpc = {
   }
 }
 
-tags = {
-  Company_Name  = "Robot Store"
-  Business_Unit = "E-Commerce"
-  Project_Name  = "RobotShop"
-  Cost_Center   = "ecom-rs"
-  Create_By     = "Terraform"
-}
 
-env = "dev"
 
 alb = {
   public = {
@@ -94,3 +98,10 @@ elasticache = {
   }
 }
 
+rabbitmq = {
+  main = {
+    instance_type    = "t3.small"
+    sg_port          = "5672"
+    ssh_subnets_cidr = ["172.31.81.2/32"]
+  }
+}

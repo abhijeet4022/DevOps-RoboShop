@@ -20,3 +20,7 @@ variable "rds" {}
 
 # elasticache
 variable "elasticache" {}
+
+# RabbitMQ
+variable "rabbitmq" {}
+variable "zone_id" {}
