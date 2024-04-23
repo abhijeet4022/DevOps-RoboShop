@@ -89,7 +89,7 @@ elasticache = {
     engine_version          = "6.2"
     family                  = "redis6.x"
     node_type               = "cache.t3.micro"
-    num_cache_nodes         = 1
+    num_cache_nodes         = 2
     sg_port                 = 6379
   }
 }
