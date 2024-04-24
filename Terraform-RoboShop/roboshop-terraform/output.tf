@@ -15,10 +15,10 @@
 #  value = local.app_subnets
 #}
 
-output "alb" {
-  value = module.alb
-}
-
+#output "alb" {
+#  value = module.alb
+#}
+#
 #output "alb_arn" {
 #  value = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
 #}
