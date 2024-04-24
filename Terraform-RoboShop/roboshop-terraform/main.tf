@@ -17,12 +17,14 @@ module "vpc" {
 
 
 #
-## ALB Creation
+# ALB Creation
 #module "alb" {
-#  source             = "../module/tf-module-alb"
+#  source = "../module/tf-module-alb"
+#
+#  tags = var.tags
+#  env  = var.env
+#
 #  for_each           = var.alb
-#  tags               = var.tags
-#  env                = var.env
 #  internal           = each.value["internal"]
 #  load_balancer_type = each.value["load_balancer_type"]
 #  sg_ingress_cidr    = each.value["sg_ingress_cidr"]
