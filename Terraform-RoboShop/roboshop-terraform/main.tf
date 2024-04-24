@@ -131,13 +131,13 @@ module "app" {
   component        = each.key
   sg_port          = each.value["sg_port"]
   instance_type    = each.value["instance_type"]
-  desired_capacity = each.value["instance_type"]
-  max_size         = each.value["instance_type"]
-  min_size         = each.value["instance_type"]
+  desired_capacity = each.value["desired_capacity"]
+  max_size         = each.value["max_size"]
+  min_size         = each.value["min_size"]
 
   vpc_id           = local.vpc_id
   app_subnets_cidr = local.app_subnets_cidr
-  app_subnets_ids      = local.app_subnets_ids
+  app_subnets_ids  = local.app_subnets_ids
 
 }
 
