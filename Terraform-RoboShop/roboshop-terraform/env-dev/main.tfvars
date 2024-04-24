@@ -105,9 +105,9 @@ app = {
   frontend = {
     sg_port          = 80
     instance_type    = "t2.micro"
-    desired_capacity = 2 # Desired cannot be less then min size
+    desired_capacity = 1 # Desired cannot be less then min size
     max_size         = 3
-    min_size         = 2
+    min_size         = 1
   }
   catalogue = {
     sg_port          = 8080
