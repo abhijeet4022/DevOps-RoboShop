@@ -106,4 +106,28 @@ app = {
     sg_port = 80
     instance_type = "t2.micro"
   }
+  catalogue = {
+    sg_port = 8080
+    instance_type = "t2.micro"
+  }
+  user = {
+    sg_port = 8080
+    instance_type = "t2.micro"
+  }
+  cart = {
+    sg_port = 8080
+    instance_type = "t2.micro"
+  }
+  shipping = {
+    sg_port = 8080
+    instance_type = "t3.small"
+  }
+  payment = {
+    sg_port = 80
+    instance_type = "t2.micro"
+  }
+  dispatch = {
+    sg_port = 80
+    instance_type = "t2.micro"
+  }
 }
