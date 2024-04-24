@@ -8,4 +8,6 @@ variable "app_subnets_cidr" {}
 variable "ssh_subnets_cidr" {}
 variable "sg_port" {}
 
+variable "instance_type" {}
+
 

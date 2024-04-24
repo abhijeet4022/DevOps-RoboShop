@@ -104,5 +104,6 @@ rabbitmq = {
 app = {
   frontend = {
     sg_port = 80
+    instance_type = "t2.micro"
   }
 }

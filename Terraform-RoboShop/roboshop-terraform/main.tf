@@ -127,9 +127,10 @@ module "app" {
   zone_id          = var.zone_id
   ssh_subnets_cidr = var.ssh_subnets_cidr
 
-  for_each  = var.app
-  component = each.key
-  sg_port   = each.value["sg_port"]
+  for_each      = var.app
+  component     = each.key
+  sg_port       = each.value["sg_port"]
+  instance_type = each.value["instance_type"]
 
   vpc_id           = local.vpc_id
   app_subnets_cidr = local.app_subnets_cidr
