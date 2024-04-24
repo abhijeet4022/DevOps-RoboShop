@@ -11,3 +11,10 @@ variable "sg_port" {}
 variable "instance_type" {}
 
 
+variable "app_subnets_ids" {}
+variable "desired_capacity" {}
+variable "max_size" {}
+variable "min_size" {}
+
+
+

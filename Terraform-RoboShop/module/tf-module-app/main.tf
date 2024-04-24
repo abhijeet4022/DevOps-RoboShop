@@ -29,7 +29,6 @@ resource "aws_security_group" "main" {
 }
 
 # Launch Template
-
 resource "aws_launch_template" "main" {
   name                   = "${local.name_prefix}-launch-template"
   image_id               = data.aws_ami.ami.id
@@ -48,3 +47,23 @@ resource "aws_launch_template" "main" {
 }
 
 
+# AutoScaling Group.
+
+resource "aws_autoscaling_group" "main" {
+  name                = "${local.name_prefix}-asg"
+  vpc_zone_identifier = var.app_subnets_ids
+  desired_capacity    = var.desired_capacity
+  max_size            = var.max_size
+  min_size            = var.min_size
+
+  launch_template {
+    id      = aws_launch_template.main.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = Name
+    value               = local.name_prefix
+    propagate_at_launch = true
+  }
+}

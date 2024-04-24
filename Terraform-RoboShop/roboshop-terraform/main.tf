@@ -31,7 +31,7 @@ module "vpc" {
 #  # condition ? true_val : false_val
 #  # private vpc id we will fetch by lookup func from output block of vpc module.
 #  vpc_id             = each.value["internal"] ? local.vpc_id : var.default_vpc_id
-#  subnets            = each.value["internal"] ? local.app_subnets : data.aws_subnets.subnets.ids
+#  subnets            = each.value["internal"] ? local.app_subnets_ids : data.aws_subnets.subnets.ids
 #  sg_port            = each.value["sg_port"]
 #}
 
@@ -127,13 +127,18 @@ module "app" {
   zone_id          = var.zone_id
   ssh_subnets_cidr = var.ssh_subnets_cidr
 
-  for_each      = var.app
-  component     = each.key
-  sg_port       = each.value["sg_port"]
-  instance_type = each.value["instance_type"]
+  for_each         = var.app
+  component        = each.key
+  sg_port          = each.value["sg_port"]
+  instance_type    = each.value["instance_type"]
+  desired_capacity = each.value["instance_type"]
+  max_size         = each.value["instance_type"]
+  min_size         = each.value["instance_type"]
 
   vpc_id           = local.vpc_id
   app_subnets_cidr = local.app_subnets_cidr
+  app_subnets_ids      = local.app_subnets_ids
+
 }
 
 
