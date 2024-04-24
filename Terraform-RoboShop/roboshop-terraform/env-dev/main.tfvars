@@ -108,6 +108,7 @@ app = {
     desired_capacity = 1 # Desired cannot be less then min size
     max_size         = 3
     min_size         = 1
+    priority         = 1
   }
   catalogue = {
     sg_port          = 8080
@@ -115,6 +116,7 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 2
   }
   user = {
     sg_port          = 8080
@@ -122,6 +124,7 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 3
   }
   cart = {
     sg_port          = 8080
@@ -129,6 +132,7 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 4
   }
   shipping = {
     sg_port          = 8080
@@ -136,6 +140,7 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 5
   }
   payment = {
     sg_port          = 8080
@@ -143,6 +148,7 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 6
   }
   dispatch = {
     sg_port          = 8080
@@ -150,5 +156,6 @@ app = {
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
+    priority         = 7
   }
 }
