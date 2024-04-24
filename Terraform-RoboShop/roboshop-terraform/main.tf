@@ -95,18 +95,40 @@ module "vpc" {
 
 
 # RabbitMQ Instance Creation.
-module "rabbitmq" {
-  source  = "../module/tf-module-rabbitmq"
-  tags    = var.tags
-  env     = var.env
-  zone_id = var.zone_id
+#module "rabbitmq" {
+#  source = "../module/tf-module-rabbitmq"
+#
+#  tags             = var.tags
+#  env              = var.env
+#  zone_id          = var.zone_id
+#  ssh_subnets_cidr = var.ssh_subnets_cidr
+#
+#  for_each      = var.rabbitmq
+#  instance_type = each.value["instance_type"]
+#  sg_port       = each.value["sg_port"]
+#
+#  vpc_id           = local.vpc_id
+#  db_subnets_ids   = local.db_subnets_ids
+#  app_subnets_cidr = local.app_subnets_cidr
+#
+#}
 
-  for_each         = var.rabbitmq
+
+# Application Setup
+module "app" {
+  source = "../module/tf-module-app"
+
+  tags             = var.tags
+  env              = var.env
+  zone_id          = var.zone_id
+  ssh_subnets_cidr = var.ssh_subnets_cidr
+
+  for_each  = var.app
+  component = each.key
+  sg_port   = each.value["sg_port"]
+
   vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
   app_subnets_cidr = local.app_subnets_cidr
-  instance_type    = each.value["instance_type"]
-  sg_port          = each.value["sg_port"]
-  ssh_subnets_cidr = each.value["ssh_subnets_cidr"]
 }
+
 

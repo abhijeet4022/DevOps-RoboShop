@@ -1,8 +1,9 @@
-default_vpc_id = "vpc-0477f111f08e9073f"
-
-default_vpc_cidr = "172.31.0.0/16"
-
+default_vpc_id             = "vpc-0477f111f08e9073f"
+default_vpc_cidr           = "172.31.0.0/16"
 default_vpc_route_table_id = "rtb-05eefcb72f97be251"
+ssh_subnets_cidr           = ["172.31.81.2/32"]
+env                        = "dev"
+zone_id                    = "Z09678453PONOT92KJ2ZM"
 
 tags = {
   Company_Name  = "Robot Store"
@@ -11,10 +12,6 @@ tags = {
   Cost_Center   = "ecom-rs"
   Create_By     = "Terraform"
 }
-
-env = "dev"
-
-zone_id = "Z09678453PONOT92KJ2ZM"
 
 vpc = {
   main = {
@@ -38,8 +35,6 @@ vpc = {
     }
   }
 }
-
-
 
 alb = {
   public = {
@@ -87,21 +82,27 @@ rds = {
 
 elasticache = {
   main = {
-    skip_final_snapshot     = true
-    elasticache_type        = "redis"
-    engine                  = "redis"
-    engine_version          = "6.2"
-    family                  = "redis6.x"
-    node_type               = "cache.t3.micro"
-    num_cache_nodes         = 1
-    sg_port                 = 6379
+    skip_final_snapshot = true
+    elasticache_type    = "redis"
+    engine              = "redis"
+    engine_version      = "6.2"
+    family              = "redis6.x"
+    node_type           = "cache.t3.micro"
+    num_cache_nodes     = 1
+    sg_port             = 6379
   }
 }
 
 rabbitmq = {
   main = {
-    instance_type    = "t3.small"
-    sg_port          = "5672"
-    ssh_subnets_cidr = ["172.31.81.2/32"]
+    instance_type = "t3.small"
+    sg_port       = "5672"
+
+  }
+}
+
+app = {
+  frontend = {
+    sg_port = 80
   }
 }

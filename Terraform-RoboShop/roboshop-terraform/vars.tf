@@ -24,3 +24,7 @@ variable "elasticache" {}
 # RabbitMQ
 variable "rabbitmq" {}
 variable "zone_id" {}
+variable "ssh_subnets_cidr" {}
+
+# Application
+variable "app" {}
