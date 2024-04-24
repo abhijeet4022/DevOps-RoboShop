@@ -1,16 +1,18 @@
 ## VPC Creation
 module "vpc" {
-  source                     = "../module/tf-module-vpc"
-  for_each                   = var.vpc
-  cidr                       = each.value["cidr"]
-  vpc_name                   = each.value["vpc_name"]
-  # it will all subnets [public, app, web]
-  all_subnets                = each.value["subnets"]
+  source = "../module/tf-module-vpc"
+
   default_vpc_id             = var.default_vpc_id
   default_vpc_cidr           = var.default_vpc_cidr
   default_vpc_route_table_id = var.default_vpc_route_table_id
   tags                       = var.tags
   env                        = var.env
+
+  for_each    = var.vpc
+  cidr        = each.value["cidr"]
+  vpc_name    = each.value["vpc_name"]
+  all_subnets = each.value["subnets"]  # it will all subnets [public, app, web]
+
 }
 
 
