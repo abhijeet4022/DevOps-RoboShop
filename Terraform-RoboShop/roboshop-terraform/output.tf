@@ -15,3 +15,6 @@
 #  value = local.app_subnets
 #}
 
+output "alb" {
+  value = module.alb
+}
