@@ -55,12 +55,10 @@ resource "aws_autoscaling_group" "main" {
   desired_capacity    = var.desired_capacity
   max_size            = var.max_size
   min_size            = var.min_size
-
   launch_template {
     id      = aws_launch_template.main.id
     version = "$Latest"
   }
-
   tag {
     key                 = "Name"
     value               = local.name_prefix
