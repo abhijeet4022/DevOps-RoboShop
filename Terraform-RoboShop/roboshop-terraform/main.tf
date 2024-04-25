@@ -147,8 +147,8 @@ module "app" {
 
   private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
   private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
-  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
-  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
+#  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+#  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 }
 
 
