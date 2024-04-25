@@ -96,16 +96,18 @@ resource "aws_lb_listener_rule" "main" {
 
   condition {
     host_header {
-      values = [var.component == "frontend" ? "${var.env}.learntechnology.cloud" : "${var.component}-${var.env}.learntechnology.cloud"]
+      values = [
+        var.component == "frontend" ? "${var.env}.learntechnology.cloud" : "${var.component}-${var.env}.learntechnology.cloud"
+      ]
     }
   }
 }
 
 # Target Group Create for Public LB.
 resource "aws_lb_target_group" "public" {
-  count = var.component == "frontend" ? 1 : 0
+  count    = var.component == "frontend" ? 1 : 0 # This will run only for frontend component.
   name     = "${local.name_prefix}-public"
   port     = var.sg_port
   protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  vpc_id   = var.default_vpc_id # This TG is part of Public LB.
 }
