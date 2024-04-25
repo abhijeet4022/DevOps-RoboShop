@@ -105,9 +105,37 @@ resource "aws_lb_listener_rule" "main" {
 
 # Target Group Create for Public LB.
 resource "aws_lb_target_group" "public" {
-  count    = var.component == "frontend" ? 1 : 0 # This will run only for frontend component.
-  name     = "${local.name_prefix}-public"
-  port     = var.sg_port
-  protocol = "HTTP"
-  vpc_id   = var.default_vpc_id # This TG is part of Public LB.
+  count       = var.component == "frontend" ? 1 : 0 # This will run only for frontend component.
+  name        = "${local.name_prefix}-public"
+  port        = var.sg_port
+  target_type = "ip"
+  protocol    = "HTTP"
+  vpc_id      = var.default_vpc_id # This TG is part of Public LB.
+}
+
+# Attach the Private LB IP with Above TG.
+resource "aws_lb_target_group_attachment" "public" {
+  # This will iterate only for frontend.
+  count             = var.component == "frontend" ? length(tolist(data.dns_a_record_set.private_alb.addrs)) : 0
+  target_group_arn  = aws_lb_target_group.public.arn
+  target_id         = element(tolist(data.dns_a_record_set.private_alb.addrs), count.index )
+  port              = 80
+  availability_zone = "all"
+}
+
+# Create listener rule for dev. redirect the dev.learntechnology.cloud traffic to traget gruop representing the private lb ip.
+resource "aws_lb_listener_rule" "public" {
+  listener_arn = var.public_listener
+  priority     = var.priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.public[0].arn
+  }
+
+  condition {
+    host_header {
+      values = ["${var.env}.learntechnology.cloud"]
+    }
+  }
 }
