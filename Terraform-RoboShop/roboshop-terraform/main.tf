@@ -145,9 +145,10 @@ module "app" {
   app_subnets_cidr = local.app_subnets_cidr
   app_subnets_ids  = local.app_subnets_ids
 
-  alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
-  listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
-
+  private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
+  private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
+  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 }
 
 
