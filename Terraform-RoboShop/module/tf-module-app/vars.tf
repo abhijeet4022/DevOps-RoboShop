@@ -18,6 +18,7 @@ variable "min_size" {}
 
 variable "private_alb_name" {}
 variable "private_listener" {}
+variable "public_alb_name" {}
 variable "priority" {}
 
 
