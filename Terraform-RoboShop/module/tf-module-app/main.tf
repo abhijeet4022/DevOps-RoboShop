@@ -37,7 +37,7 @@ resource "aws_launch_template" "main" {
   user_data              = base64encode(templatefile("${path.module}/userdata.sh",
     {
       component = var.component
-      env = var.env
+      env       = var.env
     }))
 
   tag_specifications {
@@ -141,4 +141,57 @@ resource "aws_lb_listener_rule" "public" {
       values = ["${var.env}.learntechnology.cloud"]
     }
   }
+}
+
+
+# IAM Policy for EC2 to fetch info from SSM
+
+resource "aws_iam_policy" "main" {
+  name        = "${local.name_prefix}-ssm-policy"
+  path        = "/"
+  description = "${local.name_prefix}-ssm-policy"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+          "ssm:GetParameterHistory",
+          "ssm:GetParametersByPath",
+          "ssm:GetParameters",
+          "ssm:GetParameter"
+        ],
+        "Resource" : "arn:aws:ssm:us-east-1:767398040211:parameter/docdb.${var.env}.*"
+      },
+      {
+        "Sid" : "VisualEditor1",
+        "Effect" : "Allow",
+        "Action" : "ssm:DescribeParameters",
+        "Resource" : "*"
+      }
+    ]
+  })
+}
+
+# IAM Role for EC2-SSM.
+resource "aws_iam_role" "main" {
+  name = "${local.name_prefix}-ssm-role"
+
+  assume_role_policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Sid       = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  tags = merge(local.tags, { Name = "${local.name_prefix}-ssm-role" })
 }
