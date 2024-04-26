@@ -1,7 +1,3 @@
-- name: Set a hostname
-  ansible.builtin.hostname:
-    name: {{component}}
-
 - name: Installing NGINX WebServer.
   ansible.builtin.yum:
     name: nginx
