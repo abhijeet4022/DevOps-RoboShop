@@ -1,6 +1,6 @@
 - name: Set a hostname
   ansible.builtin.hostname:
-    name: {{component}}
+    name: "{{component}}"
 
 - name: Importing SSM-Agent Tasks.
   ansible.builtin.import_role:
