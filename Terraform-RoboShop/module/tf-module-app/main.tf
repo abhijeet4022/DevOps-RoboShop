@@ -121,7 +121,7 @@ resource "aws_lb_target_group_attachment" "public" {
   target_id         = element(tolist(data.dns_a_record_set.private_alb.addrs), count.index)
   port              = 80
   availability_zone = "all"
-  depends_on = [data.dns_a_record_set.private_alb]
+  depends_on        = [data.dns_a_record_set.private_alb.addrs]
 }
 
 # Create listener rule for dev. redirect the dev.learntechnology.cloud traffic to traget gruop representing the private lb ip.
