@@ -127,7 +127,7 @@ module "rabbitmq" {
 module "app" {
   source = "../module/tf-module-app"
 
-  depends_on = [module.alb]
+  #depends_on = [module.alb]
 
   tags             = var.tags
   env              = var.env
