@@ -2,6 +2,7 @@
 parameters = {
   # DocumentDB
   "docdb.dev.master_username" = { type = "String", value = "docadmin" }
+  "docdb.dev.endpoint" = { type = "String", value = "dev-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com"}
 
   # Aurora_MySQL
   "rds.dev.master_username" = { type = "String", value = "devadmin" }

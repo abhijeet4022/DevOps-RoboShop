@@ -8,7 +8,11 @@
     name: mongodb-org-shell
     state: latest
 
+- name: Download the Amazon DocumentDB Certificate Authority (CA) certificate required to authenticate to your cluster.
+  ansible.builtin.shell: wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+
 - name: Load the schema to mongodb.
-  ansible.builtin.shell: mongo --host mongodb-dev.learntechnology.cloud </app/schema/{{component}}.js
+  ansible.builtin.shell: mongo --ssl --host {{lookup('amazon.aws.aws_ssm', 'docdb.{{env}}.endpoint', 'region=us-east-1'}}:27017 --sslCAFile global-bundle.pem --username docadmin --password roboshop1234 </app/schema/{{component}}.js
+
 
 
