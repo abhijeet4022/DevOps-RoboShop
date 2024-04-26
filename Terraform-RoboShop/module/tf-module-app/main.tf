@@ -117,7 +117,11 @@ resource "aws_lb_target_group" "public" {
 # Attach the Private LB IP with Above TG.
 resource "aws_lb_target_group_attachment" "public" {
   # This will iterate only for frontend.
-  count             = var.component == "frontend" ? length(tolist(data.dns_a_record_set.private_alb.addrs)) : 0
+  # this count is failing because of dependency in alb module so will approach another.
+  # count             = var.component == "frontend" ? length(tolist(data.dns_a_record_set.private_alb.addrs)) : 0
+
+  # Since we know that private ALB will give only two ip because there is only two AZ so will use that.
+  count             = var.component == "frontend" ? length(var.app_subnets_ids) : 0
   target_group_arn  = aws_lb_target_group.public[0].arn
   target_id         = element(tolist(data.dns_a_record_set.private_alb.addrs), count.index)
   port              = 80
