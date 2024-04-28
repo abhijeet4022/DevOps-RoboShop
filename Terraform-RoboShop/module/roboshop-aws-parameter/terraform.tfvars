@@ -4,6 +4,9 @@ parameters = {
   "docdb.dev.master_username" = { type = "String", value = "docadmin" }
   "docdb.dev.endpoint" = { type = "String", value = "dev-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com"}
 
+  # Redis
+  "user.dev.REDIS_HOST" = { type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"}
+
   # Aurora_MySQL
   "rds.dev.master_username" = { type = "String", value = "devadmin" }
   "rds.dev.database_name" = { type = "String", value = "dummy" }
