@@ -7,6 +7,12 @@ parameters = {
   # Redis
   "user.dev.REDIS_HOST" = { type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"}
 
+  # Cart
+  "cart.dev.REDIS_HOST" = { type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"}
+  "cart.dev.CATALOGUE_HOST" = { type = "String", value = "catalogue-dev.learntechnology.cloud"}
+  "cart.dev.CATALOGUE_PORT" = { type = "String", value = 80 }
+
+
   # Aurora_MySQL
   "rds.dev.master_username" = { type = "String", value = "devadmin" }
   "rds.dev.database_name" = { type = "String", value = "dummy" }
