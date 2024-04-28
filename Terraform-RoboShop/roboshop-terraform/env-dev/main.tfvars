@@ -155,7 +155,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 6
-    parameters       = []
+    parameters       = ["rabbitmq"]
   }
   dispatch = {
     sg_port          = 8080
