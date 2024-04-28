@@ -109,6 +109,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 1
+    parameters       = []
   }
   catalogue = {
     sg_port          = 8080
@@ -117,6 +118,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 2
+    parameters       = ["docdb"]
   }
   user = {
     sg_port          = 8080
@@ -125,6 +127,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 3
+    parameters       = ["docdb"]
   }
   cart = {
     sg_port          = 8080
@@ -133,6 +136,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 4
+    parameters       = []
   }
   shipping = {
     sg_port          = 8080
@@ -141,6 +145,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 5
+    parameters       = []
   }
   payment = {
     sg_port          = 8080
@@ -149,6 +154,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 6
+    parameters       = []
   }
   dispatch = {
     sg_port          = 8080
@@ -157,5 +163,6 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 7
+    parameters       = []
   }
 }
