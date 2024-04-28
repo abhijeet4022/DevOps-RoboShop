@@ -2,20 +2,31 @@
 parameters = {
   # DocumentDB
   "docdb.dev.master_username" = { type = "String", value = "docadmin" }
-  "docdb.dev.endpoint" = { type = "String", value = "dev-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com"}
+  "docdb.dev.endpoint"        = {
+    type = "String", value = "dev-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com"
+  }
 
   # Redis
-  "user.dev.REDIS_HOST" = { type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"}
+  "user.dev.REDIS_HOST" = {
+    type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"
+  }
 
   # Cart
-  "cart.dev.REDIS_HOST" = { type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"}
-  "cart.dev.CATALOGUE_HOST" = { type = "String", value = "catalogue-dev.learntechnology.cloud"}
+  "cart.dev.REDIS_HOST" = {
+    type = "String", value = "dev-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"
+  }
+  "cart.dev.CATALOGUE_HOST" = { type = "String", value = "catalogue-dev.learntechnology.cloud" }
   "cart.dev.CATALOGUE_PORT" = { type = "String", value = 80 }
+
+
+  # Shipping
+  "shipping.dev.CART_ENDPOINT" = { type = "String", value = "cart-dev.learntechnology.cloud:8080" }
+  "shipping.dev.DB_HOST" = { type = "String", value = "dev-aurora-mysql-rds-cluster.cluster-c90w68i6u5b5.us-east-1.rds.amazonaws.com" }
 
 
   # Aurora_MySQL
   "rds.dev.master_username" = { type = "String", value = "devadmin" }
-  "rds.dev.database_name" = { type = "String", value = "dummy" }
+  "rds.dev.database_name"   = { type = "String", value = "dummy" }
 
   # DocumentDB
   "docdb.dev.master_password" = { type = "String", value = "roboshop1234" }
