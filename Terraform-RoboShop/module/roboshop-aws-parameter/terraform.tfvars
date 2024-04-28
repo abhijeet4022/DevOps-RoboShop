@@ -21,7 +21,9 @@ parameters = {
 
   # Shipping
   "shipping.dev.CART_ENDPOINT" = { type = "String", value = "cart-dev.learntechnology.cloud:8080" }
-  "shipping.dev.DB_HOST" = { type = "String", value = "dev-aurora-mysql-rds-cluster.cluster-c90w68i6u5b5.us-east-1.rds.amazonaws.com" }
+  "shipping.dev.DB_HOST"       = {
+    type = "String", value = "dev-aurora-mysql-rds-cluster.cluster-c90w68i6u5b5.us-east-1.rds.amazonaws.com"
+  }
 
 
   # Aurora_MySQL
