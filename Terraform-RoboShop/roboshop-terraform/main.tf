@@ -125,6 +125,7 @@ module "rabbitmq" {
 
 # Application Setup
 module "app" {
+  depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
   source = "../module/tf-module-app"
 
   #depends_on = [module.alb]
