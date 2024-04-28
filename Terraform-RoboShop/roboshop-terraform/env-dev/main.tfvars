@@ -127,7 +127,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 3
-    parameters       = ["docdb"]
+    parameters       = ["docdb"] # User component required docdb endpoint also. So to access docdb parameter for ssm we are passing docdb as well. And for redis parameter it will take care by var.component in local of app module because redis host name is user.dev.* so by component name we can access it.
   }
   cart = {
     sg_port          = 8080

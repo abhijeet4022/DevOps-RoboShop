@@ -196,6 +196,7 @@ resource "aws_iam_policy" "main" {
           "ssm:GetParameter"
         ],
         "Resource" : local.policy_resources
+        # This will receive two resource to add in policy.
       },
       {
         "Sid" : "VisualEditor1",
