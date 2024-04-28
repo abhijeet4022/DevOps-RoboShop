@@ -11,7 +11,7 @@
 - name: Downloading the application content.
   ansible.builtin.unarchive:
       src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
-      dest: /app
+      dest: /app/
       remote_src: yes
 
 - name: Creating Application User.
