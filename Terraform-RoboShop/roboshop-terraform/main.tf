@@ -116,6 +116,7 @@ module "rabbitmq" {
   instance_type = each.value["instance_type"]
   sg_port       = each.value["sg_port"]
 
+
   vpc_id           = local.vpc_id
   db_subnets_ids   = local.db_subnets_ids
   app_subnets_cidr = local.app_subnets_cidr
