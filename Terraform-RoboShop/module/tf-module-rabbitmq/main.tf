@@ -36,10 +36,10 @@ resource "aws_instance" "main" {
   subnet_id              = var.db_subnets_ids[0]
   vpc_security_group_ids = [aws_security_group.main.id]
   tags                   = merge(local.tags, { Name = local.name_prefix } )
-  user_data              = base64encode(templatefile("${path.module}/userdata.sh",
+  user_data              = templatefile("${path.module}/userdata.sh",
     {
-      env = "dev"
-    }))
+      env = var.env
+    })
 }
 
 # Route53 Record Creation.
