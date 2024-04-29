@@ -38,7 +38,7 @@ resource "aws_instance" "main" {
   tags                   = merge(local.tags, { Name = local.name_prefix } )
   user_data              = base64encode(templatefile("${path.module}/userdata.sh",
     {
-      env = var.env
+      env = dev
     }))
 }
 
