@@ -1,3 +1,6 @@
+- name: Set Hostname
+  ansible.builtin.hostname:
+    name:  "{{component}}"
 - name: Importing Python Setup Tasks.
   ansible.builtin.import_role:
     name: common
