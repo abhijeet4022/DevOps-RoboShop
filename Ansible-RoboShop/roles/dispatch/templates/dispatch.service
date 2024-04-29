@@ -2,7 +2,7 @@
 Description = Dispatch Service
 [Service]
 User=roboshop
-Environment=AMQP_HOST={{ lookup('amazon.aws.aws_ssm', 'rabbitmq.{{env}}.AMQP_HOST', region='us-east-1') }}
+Environment=AMQP_HOST={{ lookup('amazon.aws.aws_ssm', 'dispatch.{{env}}.AMQP_HOST', region='us-east-1') }}
 Environment=AMQP_USER={{ lookup('amazon.aws.aws_ssm', 'rabbitmq.{{env}}.AMQP_USER', region='us-east-1') }}
 Environment=AMQP_PASS={{ lookup('amazon.aws.aws_ssm', 'rabbitmq.{{env}}.AMQP_PASS', region='us-east-1') }}
 ExecStart=/app/dispatch

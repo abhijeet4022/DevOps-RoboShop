@@ -38,7 +38,7 @@ parameters = {
   "rabbitmq.dev.AMQP_PASS" = { type = "String", value = "roboshop123" }
 
 # Dispatch
-  "rabbitmq.dev.AMQP_HOST" = { type = "String", value = "rabbitmq-dev.learntechnology.cloud" }
+  "dispatch.dev.AMQP_HOST" = { type = "String", value = "rabbitmq-dev.learntechnology.cloud" }
 
 
 
