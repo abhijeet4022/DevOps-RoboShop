@@ -34,15 +34,16 @@ rule_files:
 #    static_configs:
 #      - targets: ["172.31.16.210:9100"]
 
+
+# It will fetch the data from all instance but we need the data from few instance only.
+# So we will use filter. So which instance tagged by "Monitor yes" that will consider.
 scrape_configs:
   - job_name: 'EC2'
     ec2_sd_configs:
       - region: us-east-1
         port: 9100
-        # It will fetch the data from all instance but we need the data from few instance only.
-        # So we will use filter. So which instance tagged by "Monitor yes" that will consider.
         filters:
-          - name: "tag:Monitor"
-            value: ["yes"]
+        - name: "tag:Monitor"
+          values: [ "yes" ]
 
 
