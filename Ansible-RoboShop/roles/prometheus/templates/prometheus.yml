@@ -18,16 +18,30 @@ rule_files:
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
+
+# This Scaope config is for static EC2 we need dynamic value so we will go with EC2_SD_Config.
+#scrape_configs:
+#  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+#  - job_name: "prometheus"
+#
+#    # metrics_path defaults to '/metrics'
+#    # scheme defaults to 'http'.
+#
+#    static_configs:
+#      - targets: ["localhost:9090"]
+#
+#  - job_name: "Node"
+#    static_configs:
+#      - targets: ["172.31.16.210:9100"]
+
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: "prometheus"
+  - job_name: 'EC2'
+    ec2_sd_configs:
+      - region: us-east-1
+        port: 9100
+# It will fetch the data from all instance but we need the data from few instance only.
+# So we will use filter. So which instance tagged by "Monitor yes" that will consider.
+#        filter:
+#          - name: "tag: Monitor"
+#            value: ["yes"]
 
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-
-    static_configs:
-      - targets: ["localhost:9090"]
-
-  - job_name: "Node"
-    static_configs:
-      - targets: ["172.31.16.210:9100"]
