@@ -6,8 +6,8 @@ resource "aws_security_group" "main" {
   tags        = merge(local.tags, { Name = local.sg_name })
   ingress {
     description = "ALL"
-    from_port   = var.all_ports
-    to_port     = var.all_ports
+    from_port   = var.from_port
+    to_port     = var.to_port
     protocol    = "tcp"
     cidr_blocks = var.internet_ingress_cidr
   }

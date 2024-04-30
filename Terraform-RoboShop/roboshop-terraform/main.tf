@@ -167,7 +167,7 @@ module "prometheus" {
   env                   = var.env
 
   for_each      = var.prometheus
-  all_ports     = each.value["all_ports"]
   instance_type = each.value["instance_type"]
-
+  from_port     = each.value["from_port"]
+  to_port       = each.value["to_port"]
 }
