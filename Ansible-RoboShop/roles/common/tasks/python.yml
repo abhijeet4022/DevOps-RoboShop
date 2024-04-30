@@ -1,9 +1,5 @@
-- name: Set a hostname
-  ansible.builtin.hostname:
-    name: "{{component}}"
-
-- name: Importing SSM-Agent Tasks.
-  ansible.builtin.import_tasks: amazon-ssm-agent.yml
+#- name: Importing SSM-Agent Tasks.
+#  ansible.builtin.import_tasks: amazon-ssm-agent.yml
 
 - name: Installing Python Package.
   ansible.builtin.yum:
