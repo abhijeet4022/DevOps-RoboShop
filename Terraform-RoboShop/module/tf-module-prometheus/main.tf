@@ -25,6 +25,6 @@ resource "aws_security_group" "main" {
 resource "aws_instance" "instance" {
   ami                    = data.aws_ami.ami.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = aws_security_group.main.id
+  vpc_security_group_ids = aws_security_group.main.name
   tags                   = merge(local.tags, { Name = "Prometheus" })
 }
