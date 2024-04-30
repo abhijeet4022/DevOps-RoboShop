@@ -3,6 +3,12 @@
   ansible.builtin.hostname:
     name: "{{component}}"
 
+# Install Bash-Completion
+- name: Set a hostname
+  ansible.builtin.yum:
+    name: bash-completion
+    state: latest
+
 # SSM Agent Installation.
 - name: Installing amazon-ssm-agent.
   ansible.builtin.yum:
