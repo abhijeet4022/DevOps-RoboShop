@@ -4,7 +4,7 @@
     name: "{{component}}"
 
 # Install Bash-Completion
-- name: Set a hostname
+- name: Install Bash-Completion
   ansible.builtin.yum:
     name: bash-completion
     state: latest
