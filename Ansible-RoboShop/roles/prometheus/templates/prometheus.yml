@@ -40,7 +40,7 @@ scrape_configs:
       - region: us-east-1
         port: 9100
         filter:
-          - name: "tag:Monitor"
+          - name: "tag: Monitor"
             value: ["yes"]
 # It will fetch the data from all instance but we need the data from few instance only.
 # So we will use filter. So which instance tagged by "Monitor yes" that will consider.
