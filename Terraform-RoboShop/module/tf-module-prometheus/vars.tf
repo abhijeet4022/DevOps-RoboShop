@@ -6,3 +6,5 @@ variable "to_port" {}
 variable "internet_ingress_cidr" {}
 variable "instance_type" {}
 
+variable "component" {}
+

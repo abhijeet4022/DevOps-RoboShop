@@ -170,4 +170,5 @@ module "prometheus" {
   instance_type = each.value["instance_type"]
   from_port     = each.value["from_port"]
   to_port       = each.value["to_port"]
+  component     = each.key
 }
