@@ -158,17 +158,17 @@ module "app" {
 }
 
 # Prometheus Instance Creation.
-module "prometheus" {
-  source = "../module/tf-module-prometheus"
-
-  internet_ingress_cidr = var.internet_ingress_cidr
-  tags                  = var.tags
-  default_vpc_id        = var.default_vpc_id
-  env                   = var.env
-
-  for_each      = var.prometheus
-  instance_type = each.value["instance_type"]
-  from_port     = each.value["from_port"]
-  to_port       = each.value["to_port"]
-  component     = each.key
-}
+#module "prometheus" {
+#  source = "../module/tf-module-prometheus"
+#
+#  internet_ingress_cidr = var.internet_ingress_cidr
+#  tags                  = var.tags
+#  default_vpc_id        = var.default_vpc_id
+#  env                   = var.env
+#
+#  for_each      = var.prometheus
+#  instance_type = each.value["instance_type"]
+#  from_port     = each.value["from_port"]
+#  to_port       = each.value["to_port"]
+#  component     = each.key
+#}
