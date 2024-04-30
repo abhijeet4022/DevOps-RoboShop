@@ -28,6 +28,7 @@ variable "ssh_subnets_cidr" {}
 
 # Application
 variable "app" {}
+variable "monitoring_ingress_cidr" {}
 
 # Prometheus
 variable "prometheus" {}

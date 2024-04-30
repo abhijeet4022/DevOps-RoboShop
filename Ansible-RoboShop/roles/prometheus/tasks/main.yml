@@ -3,3 +3,14 @@
 
 - name: Prometheus Installation
   ansible.builtin.shell: labauto prometheus-server
+
+- name: Copy Prometheus Configuration
+  ansible.builtin.template:
+    src: prometheus.yml
+    dest: /opt/prometheus/prometheus.yml
+
+- name: Restart Prometheus
+  ansible.builtin.systemd:
+    name: prometheus
+    state: restarted
+

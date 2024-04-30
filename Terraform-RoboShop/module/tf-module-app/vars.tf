@@ -25,6 +25,7 @@ variable "default_vpc_id" {}
 variable "priority" {}
 
 variable "parameters" {}
+variable "monitoring_ingress_cidr" {}
 
 
 

@@ -136,6 +136,7 @@ module "app" {
   zone_id          = var.zone_id
   ssh_subnets_cidr = var.ssh_subnets_cidr
   default_vpc_id   = var.default_vpc_id
+  monitoring_ingress_cidr = var.monitoring_ingress_cidr
 
   for_each         = var.app
   component        = each.key

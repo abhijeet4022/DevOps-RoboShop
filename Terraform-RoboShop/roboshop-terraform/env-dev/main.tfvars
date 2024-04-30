@@ -5,6 +5,7 @@ ssh_subnets_cidr           = ["172.31.81.2/32"]
 env                        = "dev"
 zone_id                    = "Z09678453PONOT92KJ2ZM"
 internet_ingress_cidr      = ["0.0.0.0/0"]
+monitoring_ingress_cidr    = ["172.31.23.101/32"]
 
 tags = {
   Company_Name  = "Robot Store"

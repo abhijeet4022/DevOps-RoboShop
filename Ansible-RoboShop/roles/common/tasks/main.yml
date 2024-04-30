@@ -18,3 +18,7 @@
     enabled: yes
     daemon_reload: true
   when: agent == true
+
+# Setup Prometheus Node Exporter
+- name: Set a hostname
+  ansible.builtin.shell: labauto prometheus-node-exporter

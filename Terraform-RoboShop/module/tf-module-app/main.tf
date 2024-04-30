@@ -20,11 +20,11 @@ resource "aws_security_group" "main" {
     cidr_blocks = var.app_subnets_cidr
   }
   ingress {
-    description = "PROMETHEUS_NODE"
+    description = "PROMETHEUS"
     from_port   = 9100
     to_port     = 9100
     protocol    = "tcp"
-    cidr_blocks = var.app_subnets_cidr
+    cidr_blocks = var.monitoring_ingress_cidr
   }
   egress {
     from_port        = 0
