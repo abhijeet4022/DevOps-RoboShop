@@ -1,2 +1,5 @@
+- name: Importing Pre_Requisite Tasks.
+  ansible.builtin.import_tasks: pre_requisite.yml
+
 - name: Prometheus Installation
   ansible.builtin.shell: labauto prometheus-server
