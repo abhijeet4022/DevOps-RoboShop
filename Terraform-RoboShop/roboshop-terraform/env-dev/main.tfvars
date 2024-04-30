@@ -171,7 +171,7 @@ app = {
 
 prometheus = {
   main = {
-    all_ports     = "all"
+    all_ports     = 0
     instance_type = "t3.small"
   }
 }
