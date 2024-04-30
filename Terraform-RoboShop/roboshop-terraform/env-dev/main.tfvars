@@ -4,6 +4,7 @@ default_vpc_route_table_id = "rtb-05eefcb72f97be251"
 ssh_subnets_cidr           = ["172.31.81.2/32"]
 env                        = "dev"
 zone_id                    = "Z09678453PONOT92KJ2ZM"
+internet_ingress_cidr      = ["0.0.0.0/0"]
 
 tags = {
   Company_Name  = "Robot Store"
@@ -165,5 +166,12 @@ app = {
     min_size         = 1
     priority         = 7
     parameters       = ["rabbitmq"]
+  }
+}
+
+prometheus = {
+  main = {
+    all_ports     = "all"
+    instance_type = "t3.small"
   }
 }

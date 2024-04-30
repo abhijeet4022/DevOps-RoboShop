@@ -126,8 +126,8 @@ module "alb" {
 
 # Application Setup
 module "app" {
-#  depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
-  source     = "../module/tf-module-app"
+  #  depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
+  source = "../module/tf-module-app"
 
   #depends_on = [module.alb]
 
@@ -157,4 +157,17 @@ module "app" {
   public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 }
 
+# Prometheus Instance Creation.
+module "prometheus" {
+  source = "../module/tf-module-prometheus"
 
+  internet_ingress_cidr = var.internet_ingress_cidr
+  tags                  = var.tags
+  default_vpc_id        = var.default_vpc_id
+  env                   = var.env
+
+  for_each      = var.prometheus
+  all_ports     = each.value["all_ports"]
+  instance_type = each.value["instance_type"]
+
+}
