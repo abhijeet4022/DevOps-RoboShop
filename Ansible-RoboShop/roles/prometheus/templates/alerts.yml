@@ -1,0 +1,11 @@
+# Prometheus will generate the alert if instance is down.
+groups:
+  - name: ec2
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Instance Down
