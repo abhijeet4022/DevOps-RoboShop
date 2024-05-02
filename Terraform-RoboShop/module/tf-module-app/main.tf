@@ -35,6 +35,16 @@ resource "aws_security_group" "main" {
   }
 }
 
+resource "aws_security_group_rule" "nginx_exporter" {
+  count             = var.component == "frontend" ? 1 : 0
+  type              = "ingress"
+  from_port         = 9113
+  to_port           = 9113
+  protocol          = "tcp"
+  cidr_blocks       = var.monitoring_ingress_cidr
+  security_group_id = [aws_security_group.main.id]
+  description       = "Nginx Prometheus Exporter"
+}
 
 
 # Launch Template
@@ -58,8 +68,6 @@ resource "aws_launch_template" "main" {
 
   }
 }
-
-
 
 
 # AutoScaling Group.
@@ -87,7 +95,6 @@ resource "aws_autoscaling_group" "main" {
 }
 
 
-
 # Route53 Record Creation.
 resource "aws_route53_record" "main" {
   zone_id = var.zone_id
@@ -98,8 +105,6 @@ resource "aws_route53_record" "main" {
 }
 
 
-
-
 # Target Group Create for Private LB.
 resource "aws_lb_target_group" "main" {
   name     = local.name_prefix
@@ -107,8 +112,6 @@ resource "aws_lb_target_group" "main" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 }
-
-
 
 
 # Create Listener Rule. Redirect the traffic to specific TG as per domain.
@@ -131,9 +134,6 @@ resource "aws_lb_listener_rule" "main" {
 }
 
 
-
-
-
 # Target Group Create for Public LB.
 resource "aws_lb_target_group" "public" {
   count       = var.component == "frontend" ? 1 : 0 # This will run only for frontend component.
@@ -143,9 +143,6 @@ resource "aws_lb_target_group" "public" {
   protocol    = "HTTP"
   vpc_id      = var.default_vpc_id # This TG is part of Public LB.
 }
-
-
-
 
 
 # Attach the Private LB IP with Above TG.
@@ -162,9 +159,6 @@ resource "aws_lb_target_group_attachment" "public" {
   availability_zone = "all"
   # depends_on        = [data.dns_a_record_set.private_alb]
 }
-
-
-
 
 
 # Create listener rule for dev. redirect the dev.learntechnology.cloud traffic to traget gruop representing the private lb ip.
@@ -184,9 +178,6 @@ resource "aws_lb_listener_rule" "public" {
     }
   }
 }
-
-
-
 
 
 # IAM Policy for EC2 to fetch info from SSM
@@ -221,8 +212,6 @@ resource "aws_iam_policy" "main" {
 }
 
 
-
-
 # IAM Role for EC2-SSM.
 resource "aws_iam_role" "main" {
   name = "${local.name_prefix}-ssm-role"
@@ -245,15 +234,11 @@ resource "aws_iam_role" "main" {
 }
 
 
-
-
 # Attach the IAM Policy with IAM Role.
 resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.main.name
   policy_arn = aws_iam_policy.main.arn
 }
-
-
 
 
 # Create IAM Instance Profile for IAm Role
