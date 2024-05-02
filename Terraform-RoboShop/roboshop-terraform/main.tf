@@ -131,7 +131,7 @@ module "app" {
 
   #depends_on = [module.alb]
 
-  tags             = var.tags
+  tags             = merge(var.tags, each.value["tags"])
   env              = var.env
   zone_id          = var.zone_id
   ssh_subnets_cidr = var.ssh_subnets_cidr

@@ -112,6 +112,7 @@ app = {
     min_size         = 1
     priority         = 1
     parameters       = []
+    tags             = { Monitor_Nginx = "yes" }
   }
   catalogue = {
     sg_port          = 8080
@@ -121,6 +122,7 @@ app = {
     min_size         = 1
     priority         = 2
     parameters       = ["docdb"]
+    tags             = {}
   }
   user = {
     sg_port          = 8080
@@ -131,6 +133,7 @@ app = {
     priority         = 3
     parameters       = ["docdb"]
     # User component required docdb endpoint also. So to access docdb parameter for ssm we are passing docdb as well. And for redis parameter it will take care by var.component in local of app module because redis host name is user.dev.* so by component name we can access it.
+    tags             = {}
   }
   cart = {
     sg_port          = 8080
@@ -140,6 +143,7 @@ app = {
     min_size         = 1
     priority         = 4
     parameters       = []
+    tags             = {}
   }
   shipping = {
     sg_port          = 8080
@@ -149,6 +153,7 @@ app = {
     min_size         = 1
     priority         = 5
     parameters       = ["rds"]
+    tags             = {}
   }
   payment = {
     sg_port          = 8080
@@ -158,6 +163,7 @@ app = {
     min_size         = 1
     priority         = 6
     parameters       = ["rabbitmq"]
+    tags             = {}
   }
   dispatch = {
     sg_port          = 8080
@@ -167,6 +173,7 @@ app = {
     min_size         = 1
     priority         = 7
     parameters       = ["rabbitmq"]
+    tags             = {}
   }
 }
 
