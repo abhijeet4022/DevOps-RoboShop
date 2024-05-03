@@ -77,4 +77,4 @@ scrape_configs:
 
 
 
-# ansible-pull -i localhost, -U https://github.com/abhijeet4022/DevOps-RoboShop.git Ansible-RoboShop/main.yml -e component=prometheus
+# ansible-pull -i localhost, -U https://github.com/abhijeet4022/DevOps-RoboShop.git Ansible-RoboShop/main.yml -e component=prometheus &>> /opt/roboshop.log

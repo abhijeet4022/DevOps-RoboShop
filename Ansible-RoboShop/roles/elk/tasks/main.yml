@@ -22,3 +22,20 @@
     state: restarted
     enabled: yes
     daemon_reload: true
+
+- name: Restart Kibana.
+  ansible.builtin.systemd:
+    name: kibana
+    state: restarted
+    enabled: yes
+
+- name: Copying Nginx_Proxy Conf File.
+  ansible.builtin.template:
+    src: "http-proxy.conf"
+    dest: /etc/nginx/nginx.conf
+
+- name: Restart Nginx Service.
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
