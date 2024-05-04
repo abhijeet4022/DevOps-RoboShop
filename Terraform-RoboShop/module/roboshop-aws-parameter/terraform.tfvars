@@ -37,7 +37,7 @@ parameters = {
   "rabbitmq.dev.AMQP_USER" = { type = "String", value = "roboshop" }
   "rabbitmq.dev.AMQP_PASS" = { type = "String", value = "roboshop123" }
 
-# Dispatch
+  # Dispatch
   "dispatch.dev.AMQP_HOST" = { type = "String", value = "rabbitmq-dev.learntechnology.cloud" }
 
 
@@ -48,8 +48,13 @@ parameters = {
   "rds.dev.database_name"   = { type = "String", value = "dummy" }
 
   # DocumentDB
-  "docdb.dev.master_password" = { type = "String", value = "roboshop1234" }
+  "docdb.dev.master_password" = { type = "SecureString", value = "roboshop1234" }
 
   # Aurora_MySQL
-  "rds.dev.master_password" = { type = "String", value = "roboshop1234" }
+  "rds.dev.master_password" = { type = "SecureString", value = "roboshop1234" }
+
+  #ElasticSearch
+  "elasticsearch.username" = { type = "String", value = "elastic" }
+  "elasticsearch.password" = { type = "SecureString", value = "wXUu_puopW+I=3L8fW_T" }
+
 }
