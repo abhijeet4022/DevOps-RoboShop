@@ -36,92 +36,92 @@ module "alb" {
 }
 
 
-# DocumentDB Creation
-module "docdb" {
-  source = "../module/tf-module-docdb"
-
-  tags = var.tags
-  env  = var.env
-
-  for_each                = var.docdb
-  engine_family           = each.value["engine_family"]
-  backup_retention_period = each.value["backup_retention_period"]
-  preferred_backup_window = each.value["preferred_backup_window"]
-  skip_final_snapshot     = each.value["skip_final_snapshot"]
-  engine_version          = each.value["engine_version"]
-  instance_count          = each.value["instance_count"]
-  instance_class          = each.value["instance_class"]
-
-  vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
-  app_subnets_cidr = local.app_subnets_cidr
-}
-
-# Aurora_MYSQL RDS Creation.
-module "rds" {
-  source = "../module/tf-module-rds"
-
-  tags = var.tags
-  env  = var.env
-
-  for_each                = var.rds
-  backup_retention_period = each.value["backup_retention_period"]
-  engine                  = each.value["engine"]
-  engine_version          = each.value["engine_version"]
-  family                  = each.value["family"]
-  instance_class          = each.value["instance_class"]
-  instance_count          = each.value["instance_count"]
-  preferred_backup_window = each.value["preferred_backup_window"]
-  rds_type                = each.value["rds_type"]
-  sg_port                 = each.value["sg_port"]
-  skip_final_snapshot     = each.value["skip_final_snapshot"]
-
-  vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
-  app_subnets_cidr = local.app_subnets_cidr
-}
-
-# ElastiCache Cluster Creation.
-module "elasticache" {
-  source = "../module/tf-module-elasticache"
-
-  tags = var.tags
-  env  = var.env
-
-  for_each         = var.elasticache
-  elasticache_type = each.value["elasticache_type"]
-  engine           = each.value["engine"]
-  engine_version   = each.value["engine_version"]
-  family           = each.value["family"]
-  node_type        = each.value["node_type"]
-  num_cache_nodes  = each.value["num_cache_nodes"]
-  sg_port          = each.value["sg_port"]
-
-  vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
-  app_subnets_cidr = local.app_subnets_cidr
-}
-
-
-# RabbitMQ Instance Creation.
-module "rabbitmq" {
-  source = "../module/tf-module-rabbitmq"
-
-  tags             = var.tags
-  env              = var.env
-  zone_id          = var.zone_id
-  ssh_subnets_cidr = var.ssh_subnets_cidr
-
-  for_each      = var.rabbitmq
-  instance_type = each.value["instance_type"]
-  sg_port       = each.value["sg_port"]
-
-
-  vpc_id           = local.vpc_id
-  db_subnets_ids   = local.db_subnets_ids
-  app_subnets_cidr = local.app_subnets_cidr
-
-}
+## DocumentDB Creation
+#module "docdb" {
+#  source = "../module/tf-module-docdb"
+#
+#  tags = var.tags
+#  env  = var.env
+#
+#  for_each                = var.docdb
+#  engine_family           = each.value["engine_family"]
+#  backup_retention_period = each.value["backup_retention_period"]
+#  preferred_backup_window = each.value["preferred_backup_window"]
+#  skip_final_snapshot     = each.value["skip_final_snapshot"]
+#  engine_version          = each.value["engine_version"]
+#  instance_count          = each.value["instance_count"]
+#  instance_class          = each.value["instance_class"]
+#
+#  vpc_id           = local.vpc_id
+#  db_subnets_ids   = local.db_subnets_ids
+#  app_subnets_cidr = local.app_subnets_cidr
+#}
+#
+## Aurora_MYSQL RDS Creation.
+#module "rds" {
+#  source = "../module/tf-module-rds"
+#
+#  tags = var.tags
+#  env  = var.env
+#
+#  for_each                = var.rds
+#  backup_retention_period = each.value["backup_retention_period"]
+#  engine                  = each.value["engine"]
+#  engine_version          = each.value["engine_version"]
+#  family                  = each.value["family"]
+#  instance_class          = each.value["instance_class"]
+#  instance_count          = each.value["instance_count"]
+#  preferred_backup_window = each.value["preferred_backup_window"]
+#  rds_type                = each.value["rds_type"]
+#  sg_port                 = each.value["sg_port"]
+#  skip_final_snapshot     = each.value["skip_final_snapshot"]
+#
+#  vpc_id           = local.vpc_id
+#  db_subnets_ids   = local.db_subnets_ids
+#  app_subnets_cidr = local.app_subnets_cidr
+#}
+#
+## ElastiCache Cluster Creation.
+#module "elasticache" {
+#  source = "../module/tf-module-elasticache"
+#
+#  tags = var.tags
+#  env  = var.env
+#
+#  for_each         = var.elasticache
+#  elasticache_type = each.value["elasticache_type"]
+#  engine           = each.value["engine"]
+#  engine_version   = each.value["engine_version"]
+#  family           = each.value["family"]
+#  node_type        = each.value["node_type"]
+#  num_cache_nodes  = each.value["num_cache_nodes"]
+#  sg_port          = each.value["sg_port"]
+#
+#  vpc_id           = local.vpc_id
+#  db_subnets_ids   = local.db_subnets_ids
+#  app_subnets_cidr = local.app_subnets_cidr
+#}
+#
+#
+## RabbitMQ Instance Creation.
+#module "rabbitmq" {
+#  source = "../module/tf-module-rabbitmq"
+#
+#  tags             = var.tags
+#  env              = var.env
+#  zone_id          = var.zone_id
+#  ssh_subnets_cidr = var.ssh_subnets_cidr
+#
+#  for_each      = var.rabbitmq
+#  instance_type = each.value["instance_type"]
+#  sg_port       = each.value["sg_port"]
+#
+#
+#  vpc_id           = local.vpc_id
+#  db_subnets_ids   = local.db_subnets_ids
+#  app_subnets_cidr = local.app_subnets_cidr
+#
+#}
 
 
 # Application Setup
