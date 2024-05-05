@@ -4,7 +4,7 @@
 
 - name: Copying ElasticSearch Repo File
   ansible.builtin.template:
-    src: "elasticsearch.repo"
+    src: "elk.repo"
     dest: /etc/yum.repos.d/
 
 - name: Installing ElasticSearch, Kibana & Nginx
