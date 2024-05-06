@@ -1,3 +1,5 @@
 component: catalogue
 schema: true
 agent: true
+log_file: /var/log/catalogue.log
+log_type: jason

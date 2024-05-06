@@ -1,3 +1,5 @@
 component: user
 schema: true
 agent: true
+log_file: /var/log/user.log
+log_type: jason

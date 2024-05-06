@@ -1,2 +1,4 @@
 component: payment
 agent: true
+log_file: /var/log/payment.log
+log_type: raw

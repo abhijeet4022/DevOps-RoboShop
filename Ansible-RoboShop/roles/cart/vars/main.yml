@@ -1,2 +1,4 @@
 component: cart
 agent: true
+log_file: /var/log/cart.log
+log_type: jason
