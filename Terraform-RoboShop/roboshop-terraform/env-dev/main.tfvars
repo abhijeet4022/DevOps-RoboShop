@@ -116,7 +116,7 @@ app = {
   }
   catalogue = {
     sg_port          = 8080
-    instance_type    = "t2.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
