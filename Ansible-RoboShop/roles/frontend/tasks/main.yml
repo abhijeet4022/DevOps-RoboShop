@@ -24,6 +24,11 @@
     dest: /usr/share/nginx/html
     remote_src: yes
 
+- name: Copying Nginx Configuration file.
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
 - name: Restarting NGINX WebServer.
   ansible.builtin.systemd:
     name: nginx
@@ -53,6 +58,10 @@
     state: restarted
     enabled: yes
 
+- name: Filebeat Configuration
+  ansible.builtin.import_role:
+    name: elk
+    tasks_from: filebeat
 
 
 

@@ -1,2 +1,3 @@
 component: frontend
 agent: true
+elk_component: filebeat
