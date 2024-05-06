@@ -1,3 +1,5 @@
 component: frontend
 agent: true
-elk_component: filebeat
+log_file: /var/log/nginx/access.log
+log_type: raw
+
