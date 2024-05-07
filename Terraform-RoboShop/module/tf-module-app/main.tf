@@ -145,7 +145,7 @@ resource "aws_lb_target_group" "public" {
   health_check {
     enabled             = true
     healthy_threshold   = 2
-    interval            = 2
+    interval            = 5
     path                = "/"
     port                = var.sg_port
     timeout             = 2
