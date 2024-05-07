@@ -111,6 +111,16 @@ resource "aws_lb_target_group" "main" {
   port     = var.sg_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    interval            = 5
+    path                = "/health"
+    port                = var.sg_port
+    timeout             = 2
+    unhealthy_threshold = 2
+    matcher             = "200"
+  }
 }
 
 
