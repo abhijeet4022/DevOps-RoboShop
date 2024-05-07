@@ -106,7 +106,7 @@ rabbitmq = {
 app = {
   frontend = {
     sg_port          = 80
-    instance_type    = "t3.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1 # Desired cannot be less then min size
     max_size         = 3
     min_size         = 1
@@ -126,7 +126,7 @@ app = {
   }
   user = {
     sg_port          = 8080
-    instance_type    = "t3.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
@@ -137,7 +137,7 @@ app = {
   }
   cart = {
     sg_port          = 8080
-    instance_type    = "t3.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
@@ -157,7 +157,7 @@ app = {
   }
   payment = {
     sg_port          = 8080
-    instance_type    = "t3.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
@@ -167,7 +167,7 @@ app = {
   }
   dispatch = {
     sg_port          = 8080
-    instance_type    = "t3.micro"
+    instance_type    = "t3.small"
     desired_capacity = 1
     max_size         = 3
     min_size         = 1
