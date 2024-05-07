@@ -143,7 +143,7 @@ resource "aws_lb_target_group" "public" {
   protocol    = "HTTP"
   vpc_id      = var.default_vpc_id # This TG is part of Public LB.
   health_check {
-    enabled             = "yes"
+    enabled             = true
     healthy_threshold   = 2
     interval            = 2
     path                = "/"
