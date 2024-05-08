@@ -35,7 +35,7 @@ pipeline {
                 echo 'Test Branch Deleted'
             }
         }
-        stage('Branch_Test2') {
+        stage('Branch_Test3') {
             steps {
                 echo 'Test Branch'
             }
