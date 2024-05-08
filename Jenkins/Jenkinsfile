@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Test_Branch') {
+            steps {
+                echo 'Test'
+            }
+        }
         stage('Compile') {
             steps {
                 echo 'Compile'
@@ -12,16 +17,6 @@ pipeline {
                 echo 'Test'
             }
         }
-        stage('Code Quality') {
-            steps {
-                echo 'Code Quality'
-            }
-        }
-        stage('Code Security') {
-            steps {
-                echo 'Code Security'
-            }
 
-        }
     }
 }
