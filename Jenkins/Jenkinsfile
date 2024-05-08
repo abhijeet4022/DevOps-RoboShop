@@ -28,6 +28,11 @@ pipeline {
                 echo 'Test Branch Deleted'
             }
         }
+        stage('Branch_Test2') {
+            steps {
+                echo 'Test Branch Deleted'
+            }
+        }
 
     }
 }
