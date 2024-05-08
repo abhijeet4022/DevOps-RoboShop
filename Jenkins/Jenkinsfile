@@ -6,6 +6,8 @@ pipeline {
         stage('Test_Branch') {
             steps {
                 echo 'Test'
+            }
+        }
 
         stage('Main_Branch') {
             steps {
