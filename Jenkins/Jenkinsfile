@@ -1,45 +1,40 @@
 pipeline {
-    agent any
+    // agent any
+    agent { node { label 'workstation' } }
 
     stages {
 
-        stage('Test_Branch') {
-            steps {
-                echo 'Test'
-            }
-        }
-
-        stage('Main_Branch') {
-            steps {
-                echo 'Compile'
-
-            }
-        }
         stage('Compile') {
             steps {
-                echo 'Compile'
+                echo 'Compiling The Code.'
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Test'
+                echo 'Test The Code.'
+
             }
         }
-        stage('Branch') {
+        stage('Code Quality') {
             steps {
-                echo 'Test Branch Deleted'
+                echo 'Code Quality'
             }
         }
-        stage('Branch_Test2') {
+        stage('Code Security') {
             steps {
-                echo 'Test Branch Deleted'
-            }
-        }
-        stage('Branch_Test3') {
-            steps {
-                echo 'Test Branch'
+                echo 'Code Security'
             }
         }
 
     }
+    post {
+        always {
+            echo 'post'
+            // Send Email
+            // Trigger Some another job
+            // Update some JIRA Status about the build.
+    }
+    }
 }
+
