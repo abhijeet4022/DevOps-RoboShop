@@ -1,52 +1,72 @@
-pipeline {
-    // agent any
+// Define Variables
+def x:integer = 10
+env.y = 20
 
-    // Mention the nodes.
-    agent { node { label 'workstation' } }
-
-    // Poliscm trigger to fetch the changes every one minute.
-    triggers { pollSCM('*/1 * * * *') }
-
-    // Ansi Colour options
-    options {
-        ansiColor('xterm')
-        buildDiscarder(logRotator(numToKeepStr: '3'))
-    }
-
-    // Access Variables.
-    environment {
-    TEST_URL = "google.com"
-    SSH = credentials("centos-ssh")
-    }
-
-    // Access the secret that is stored in Jenkins.
-    // environment { SSH = credentials("centos-ssh")}
-
-    stages {
-        stage('Compile') {
-            steps {
-                echo TEST_URL
-                echo SSH
-            }
-        }
-        stage('Env') {
-            steps {
-                sh 'env'
-                sh 'ansible -i 172.31.81.2, all -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -m ping'
-            }
-        }
-        stage('Hello') {
-            steps {
-                echo "Hello World"
-            }
-        }
-        stage('Test') {
-            steps {
-                echo "Test for pollSCM"
-            }
-        }
-    }
+// Define Function
+def sample(){
+print "Sample Function"
 }
+
+
+node('workstation'){
+stage('Tset'){
+print x
+sh 'echo y = ${y}'
+}
+}
+
+
+
+
+// pipeline {
+//     // agent any
+//
+//     // Mention the nodes.
+//     agent { node { label 'workstation' } }
+//
+//     // Poliscm trigger to fetch the changes every one minute.
+//     triggers { pollSCM('*/1 * * * *') }
+//
+//     // Ansi Colour options
+//     options {
+//         ansiColor('xterm')
+//         buildDiscarder(logRotator(numToKeepStr: '3'))
+//     }
+//
+//     // Access Variables.
+//     environment {
+//     TEST_URL = "google.com"
+//     SSH = credentials("centos-ssh")
+//     }
+//
+//     // Access the secret that is stored in Jenkins.
+//     // environment { SSH = credentials("centos-ssh")}
+//
+//     stages {
+//         stage('Compile') {
+//             steps {
+//                 echo TEST_URL
+//                 echo SSH
+//             }
+//         }
+//         stage('Env') {
+//             steps {
+//                 sh 'env'
+//                 sh 'ansible -i 172.31.81.2, all -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -m ping'
+//             }
+//         }
+//         stage('Hello') {
+//             steps {
+//                 echo "Hello World"
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 echo "Test for pollSCM"
+//             }
+//         }
+//     }
+// }
 
 
 
