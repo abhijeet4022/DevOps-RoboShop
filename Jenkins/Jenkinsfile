@@ -12,6 +12,7 @@ pipeline {
     // Access Variables.
     environment {
     TEST_URL = "google.com"
+    JEN = credentials("centos-ssh")
     }
 
     // Access the secret that is stored in Jenkins.
@@ -21,13 +22,13 @@ pipeline {
         stage('Compile') {
             steps {
                 echo TEST_URL
-                echo SSH
+                echo JEN
             }
         }
         stage('Env') {
             steps {
                 sh 'env'
-                sh 'ansible -i 172.31.81.2, all -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -m ping'
+                sh 'ansible -i 172.31.81.2, all -e ansible_user=${JEN_USR} -e ansible_password=${JEN_PSW} -m ping'
             }
         }
     }
