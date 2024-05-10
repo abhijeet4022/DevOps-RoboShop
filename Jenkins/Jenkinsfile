@@ -4,6 +4,9 @@ pipeline {
     // Mention the nodes.
     agent { node { label 'workstation' } }
 
+    // Poliscm trigger to fetch the changes every one minute.
+    triggers { pollSCM('*/1 * * * *') }
+
     // Ansi Colour options
     options {
         ansiColor('xterm')
