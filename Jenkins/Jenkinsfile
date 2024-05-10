@@ -9,10 +9,15 @@ print "Sample Function"
 
 
 node('workstation'){
-stage('Tset'){
-print x
-sh 'echo y = ${y}'
-}
+    if (x > 10) {
+        stage('Tset'){
+            print x
+        }
+    } else {
+        stage('Test1'){
+            sample()
+        }
+    }
 }
 
 
