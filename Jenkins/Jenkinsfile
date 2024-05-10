@@ -4,6 +4,9 @@ pipeline {
     // Mention the nodes.
     agent { node { label 'workstation' } }
 
+    // Ansi Colour options
+    options { ansiColor('xterm')}
+
     // Access Variables.
     environment { TEST_URL = "google.com" }
 
