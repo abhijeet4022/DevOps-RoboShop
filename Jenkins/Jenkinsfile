@@ -1,14 +1,21 @@
 pipeline {
     // agent any
+
+    // Mention the nodes.
     agent { node { label 'workstation' } }
+
+    // Access Variables.
     environment { TEST_URL = "google.com" }
+
+    // Access the secret that is stored in Jenkins.
+    environment { SSH = credentials("centos-ssh")}
 
 
     stages {
-
         stage('Compile') {
             steps {
                 echo TEST_URL
+                echo SSH
             }
         }
     }
