@@ -35,6 +35,11 @@ pipeline {
                 sh 'ansible -i 172.31.81.2, all -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -m ping'
             }
         }
+        stage('Hello') {
+            steps {
+                echo "Hello World"
+            }
+        }
     }
 }
 
