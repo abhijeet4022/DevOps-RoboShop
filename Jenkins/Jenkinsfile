@@ -10,7 +10,7 @@ print "Sample Function"
 
 node('workstation'){
     if (x > 10) {
-        stage('Tset'){
+        stage('Test'){
             print x
         }
     } else {
