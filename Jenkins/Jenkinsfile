@@ -8,10 +8,13 @@ pipeline {
     options { ansiColor('xterm')}
 
     // Access Variables.
-    environment { TEST_URL = "google.com" }
+    environment {
+    TEST_URL = "google.com"
+    SSH = credentials("centos-ssh")
+    }
 
     // Access the secret that is stored in Jenkins.
-    environment { SSH = credentials("centos-ssh")}
+    // environment { SSH = credentials("centos-ssh")}
 
 
     stages {
