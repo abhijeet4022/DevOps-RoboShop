@@ -1,0 +1,13 @@
+- name: Create Jenkins Jobs
+  hosts: localhost
+  become: yes
+  roles:
+    - jenkins
+  vars:
+    folder:
+      - { folder_name: "abc" }
+      - { folder_name: "xyz" }
+    mjob:
+      - { job_name: "cart", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git"}
+    sjob:
+      - { job_name: "roboshop-terraform", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git"}
