@@ -9,6 +9,11 @@ def warning(message) {
 def call() {
     pipeline {
         agent { node { label 'workstation' } }
+        triggers { pollSCM('*/1 * * * *') }
+        options {
+            ansiColor('xterm')
+            buildDiscarder(logRotator(numToKeepStr: '3'))
+       }
         stages {
             stage('Compile Code') {
                 steps {
