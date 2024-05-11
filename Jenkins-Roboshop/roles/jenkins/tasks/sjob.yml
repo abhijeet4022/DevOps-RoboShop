@@ -6,7 +6,7 @@
 - name: Create a SingleBranch_Pipeline jenkins job - {{ item.job_name}}.
   community.general.jenkins_job:
     config: "{{ lookup('file', '/tmp/sjob.xml') }}"
-    name: "{{ item.job_name}}"
+    name: "{{ item.folder_name}}/{{ item.job_name}}"
     password: DevOps321
     url: http://172.31.19.166:8080
     user: admin
