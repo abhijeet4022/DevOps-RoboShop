@@ -1,10 +1,10 @@
 - name: Create Multi Branch Pipeline Jobs.
   ansible.builtin.include_tasks:
     file: mjob.yml
-  loops: "{{ mjob }}"
+  loop: "{{ mjob }}"
 
 
 - name: Create Single Branch Pipeline Jobs.
   ansible.builtin.include_tasks:
     file: sjob.yml
-  loops: "{{ sjob }}"
+  loop: "{{ sjob }}"
