@@ -14,6 +14,7 @@ def call() {
             }
             stage('Test') {
                 when {
+                    expression { env.BRANCH_NAME != null }
                     expression { env.TAG_NAME == null }
                 }
                 steps {
@@ -22,6 +23,7 @@ def call() {
             }
             stage('Code Quality') {
                 when {
+                    expression { env.BRANCH_NAME != null }
                     expression { env.TAG_NAME == null }
                 }
                 steps {
