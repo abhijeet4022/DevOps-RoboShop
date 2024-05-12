@@ -29,7 +29,7 @@ def call() {
             }
             stage('Release') {
                 when {
-                    expression { TAG_NAME == tag1 }
+                    expression { env.TAG_NAME == tag1 }
                 }
                 steps {
                     echo 'Code Release'
