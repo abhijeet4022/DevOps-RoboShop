@@ -1,11 +1,3 @@
-def info(message) {
-    echo "INFO: ${message}"
-}
-
-def warning(message) {
-    echo "WARNING: ${message}"
-}
-
 def call() {
     pipeline {
         agent { node { label 'workstation' } }
@@ -18,10 +10,6 @@ def call() {
             stage('Compile Code') {
                 steps {
                     echo 'Compiling The Code.'
-                    script {
-                        info 'Starting'
-                        warning 'Nothing to do!'
-                    }
                 }
             }
             stage('Test') {
