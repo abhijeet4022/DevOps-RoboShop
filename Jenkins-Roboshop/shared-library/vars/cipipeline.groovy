@@ -8,9 +8,6 @@ def call() {
        }
         stages {
             stage('Compile Code') {
-                when {
-                    expression { env.TAG_NAME == null }
-                }
                 steps {
                     echo 'Compiling The Code.'
                 }
@@ -24,11 +21,17 @@ def call() {
                 }
             }
             stage('Code Quality') {
+                when {
+                    expression { env.TAG_NAME == null }
+                }
                 steps {
                     echo 'Code Quality'
                 }
             }
             stage('Code Security') {
+                when {
+                    expression { env.TAG_NAME == null }
+                }
                 steps {
                     echo 'Code Security'
                 }
