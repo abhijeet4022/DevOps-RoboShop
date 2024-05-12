@@ -16,6 +16,9 @@ def call() {
                 }
             }
             stage('Test') {
+                when {
+                    expression { env.TAG_NAME == null }
+                }
                 steps {
                     echo 'Test The Code.'
                 }
