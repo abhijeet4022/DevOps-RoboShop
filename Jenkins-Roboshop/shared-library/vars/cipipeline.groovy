@@ -8,6 +8,9 @@ def call() {
        }
         stages {
             stage('Compile Code') {
+                when {
+                    expression { env.TAG_NAME == null }
+                }
                 steps {
                     echo 'Compiling The Code.'
                 }
@@ -29,10 +32,10 @@ def call() {
             }
             stage('Release') {
                 when {
-                    expression { env.TAG_NAME == 'test1' }
+                    expression { env.TAG_NAME ==~ ".*" }
                 }
                 steps {
-                    echo 'Code Release'
+                    sh 'env'
                 }
             }
         }
