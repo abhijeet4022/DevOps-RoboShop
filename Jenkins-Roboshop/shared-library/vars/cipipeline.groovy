@@ -30,7 +30,7 @@ def call() {
             }
             stage('Code Security') {
                 when {
-                    expression { env.TAG_NAME == null }
+                    expression { BRANCH_NAME == "main" }
                 }
                 steps {
                     echo 'Code Security'
