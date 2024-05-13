@@ -16,21 +16,40 @@ def call() {
         )
 
 
-        stage('Complie Code'){
+        // Now Create condition to run the stages as per Branch and Tags.
+        stage('Complie Code') {
             common.compile()
         }
-        stage('Test'){
-            print 'Test'
+
+        if (env.TAG_NAME == null) {
+
+            stage('Test') {
+                print 'Test'
+            }
+
+            stage('Code Quality') {
+                print 'Hello'
+            }
+
         }
-        stage('Code Quality'){
-            print 'Hello'
+
+        if (env.BRANCH_NAME == "main") {
+
+            stage('Code Security') {
+                print 'Hello'
+            }
+
         }
-        stage('Code Security'){
-            print 'Hello'
+
+        if (env.TAG_NAME ==~ ".*") {
+
+            stage('Release') {
+                print 'Hello'
+            }
+
         }
-        stage('Release'){
-            print 'Hello'
-        }
+
     }
+
 }
 
