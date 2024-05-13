@@ -17,7 +17,3 @@ def compile() {
         print 'static'
     }
 }
-
-def print () {
-    print 'test'
-}
