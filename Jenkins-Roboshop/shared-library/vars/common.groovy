@@ -4,6 +4,7 @@ def compile() {
     }
 
     if (env.codeType == "maven") {
+        sh 'env'
         print 'maven'
     }
 
