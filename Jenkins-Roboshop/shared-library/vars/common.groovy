@@ -1,19 +1,44 @@
 def compile() {
-    if (env.codeType == "nodejs") {
-        print 'nodejs'
+    if (env.codeType == "python" || env.codeType == "static") {
+        return "Return, Do not need Comilation"
     }
 
-    if (env.codeType == "maven") {
-        sh 'env'
-        print 'maven'
-        sh '/usr/bin/mvn/bin/mvn package'
-    }
+    stage('Compile Code') {
+        if (env.codeType == "nodejs") {
+            sh 'npm install'
+        }
 
-    if (env.codetype == "python") {
-        print 'python'
-    }
-
-    if (env.codeType == "static") {
-        print 'static'
+        if (env.codeType == "maven") {
+            sh '/usr/bin/mvn/bin/mvn package'
+        }
     }
 }
+
+
+def test() {
+    stage('Test') {
+        print 'Test'
+    }
+}
+
+def codeQuality() {
+    stage('Code Quality') {
+        print 'Hello'
+    }
+}
+
+def codeSecurity() {
+    stage('Code Security') {
+        print 'Hello'
+    }
+}
+
+def release() {
+    stage('Release') {
+        print 'Hello'
+    }
+}
+
+
+
+
