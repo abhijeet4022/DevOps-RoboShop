@@ -6,6 +6,7 @@ def compile() {
     if (env.codeType == "maven") {
         sh 'env'
         print 'maven'
+        sh '/usr/bin/mvn/bin/mvn package'
     }
 
     if (env.codetype == "python") {
@@ -15,4 +16,8 @@ def compile() {
     if (env.codeType == "static") {
         print 'static'
     }
+}
+
+def print () {
+    print 'test'
 }

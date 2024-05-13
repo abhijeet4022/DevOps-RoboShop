@@ -18,7 +18,7 @@ def call() {
 
         // Now Create condition to run the stages as per Branch and Tags.
         stage('Complie Code') {
-            common.compile()
+            common.print()
         }
 
         if (env.TAG_NAME == null) {
