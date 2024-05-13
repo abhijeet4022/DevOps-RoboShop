@@ -3,8 +3,8 @@ def compile() {
         print 'nodejs'
     }
 
-    if (env.codeType == "java") {
-        print 'java'
+    if (env.codeType == "maven") {
+        print 'maven'
     }
 
     if (env.codetype == "python") {
