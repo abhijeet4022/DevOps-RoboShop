@@ -44,7 +44,7 @@ def call() {
         if (env.TAG_NAME ==~ ".*") {
 
             stage('Release') {
-                common.compile()
+                print 'Hello'
             }
 
         }
