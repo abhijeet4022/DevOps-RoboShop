@@ -17,8 +17,17 @@ def compile() {
 
 
 def test() {
-    stage('Test') {
-        print 'Test'
+    stage('Test Case') {
+        if (env.codeType == "nodejs") {
+            sh 'npm test'
+        }
+        if (env.codeType == "maven") {
+            sh '/usr/bin/mvn/bin/mvn test'
+        }
+        if (env.codeType == "ptyhon") {
+            python3.6 -m unittest
+        }
+
     }
 }
 
