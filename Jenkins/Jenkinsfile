@@ -30,7 +30,7 @@ pipeline {
     agent { node { label 'workstation' } }
 
     // Poliscm trigger to fetch the changes every one minute.
-    triggers { pollSCM('*/1 * * * *') }
+    triggers { pollSCM('*/3 * * * *') }
 
     // Ansi Colour options
     options {
