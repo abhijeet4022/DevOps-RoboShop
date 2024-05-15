@@ -27,6 +27,9 @@ def test() {
         if (env.codeType == "ptyhon") {
             sh 'python3.6 -m unittest'
         }
+        if (env.codeType == "static") {
+            echo 'Static Content no need to Unit Test'
+        }
 
     }
 }
