@@ -37,20 +37,7 @@ def test() {
     }
 }
 
-//def codeQuality() {
-//    stage('CodeQuality') {
-//        env.sonaruser = sh(script: 'aws ssm get-parameter --name "sonarqube.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
-//
-//
-//        env.sonarpass = sh(script: 'aws ssm get-parameter --name "sonarqube.password" --with-decryption --query="Parameter.Value" | xargs', returnStdout: true).trim()
-//
-//        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
-//            sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true'
-//        }
-//    }
-//}
-
-def codeQuality2() {
+def codeQuality() {
     stage('Code Quality') {
         env.sonaruser = sh(script: 'aws ssm get-parameter --name "sonarqube.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
         env.sonarpass = sh(script: 'aws ssm get-parameter --name "sonarqube.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
