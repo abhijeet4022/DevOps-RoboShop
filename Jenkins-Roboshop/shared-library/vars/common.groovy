@@ -17,7 +17,7 @@ def compile() {
 
 
 def test() {
-    stage('Test Case') {
+    stage('UnitTest') {
         if (env.codeType == "nodejs") {
             sh 'npm test'
         }
