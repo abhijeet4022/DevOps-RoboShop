@@ -57,4 +57,8 @@ parameters = {
   "elasticsearch.username" = { type = "String", value = "elastic" }
   "elasticsearch.password" = { type = "SecureString", value = "wXUu_puopW+I=3L8fW_T" }
 
+  #SonarQube
+  "sonarqube.username" = { type = "String", value = "admin" }
+  "sonarqube.password" = { type = "SecureString", value = "DevOps321" }
+
 }
