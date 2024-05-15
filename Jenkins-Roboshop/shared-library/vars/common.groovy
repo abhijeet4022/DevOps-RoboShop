@@ -25,14 +25,14 @@ def test() {
             sh '/usr/bin/mvn/bin/mvn test'
         }
         if (env.codeType == "ptyhon") {
-            python3.6 -m unittest
+            sh 'python3.6 -m unittest'
         }
 
     }
 }
 
 def codeQuality() {
-    stage('Code Quality') {
+    stage('CodeQuality') {
         print 'Hello'
     }
 }
