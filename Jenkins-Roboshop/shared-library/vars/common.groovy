@@ -62,7 +62,3 @@ def release() {
     }
 }
 
-
-//
-
-// sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=admin -Dsonar.password=DevOps321 -Dsonar.projectKey=cart -Dsonar.qualitygate.wait=true
