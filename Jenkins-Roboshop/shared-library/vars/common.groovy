@@ -1,6 +1,6 @@
 def compile() {
     if (env.codeType == "python" || env.codeType == "static") {
-        return  'Return, Do not need Compilation'
+        return 'Return, Do not need Compilation'
 
     }
 
@@ -39,7 +39,13 @@ def test() {
 
 def codeQuality() {
     stage('CodeQuality') {
-        print 'Hello'
+        env.sonaruser = sh(script: 'aws ssm get-parameter --name "sonarqube.username" --with-decryption --query="Parameter.Value" | xargs', returnStdout: true).trim()
+
+        env.sonarpass = sh(script: 'aws ssm get-parameter --name "sonarqube.password" --with-decryption --query="Parameter.Value" | xargs', returnStdout: true).trim()
+
+        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
+            sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true'
+        }
     }
 }
 
@@ -56,5 +62,6 @@ def release() {
 }
 
 
+//
 
-
+// sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=admin -Dsonar.password=DevOps321 -Dsonar.projectKey=cart -Dsonar.qualitygate.wait=true
