@@ -24,7 +24,7 @@ def test() {
         if (env.codeType == "maven") {
             sh '/usr/bin/mvn/bin/mvn test'
         }
-        if (env.codeType == "ptyhon") {
+        if (env.codeType == "python") {
             sh 'python3.6 -m unittest'
         }
         if (env.codeType == "static") {
