@@ -1,8 +1,6 @@
 def call() {
     node('workstation') {
 
-        triggers { pollSCM('*/1 * * * *') }
-
         sh "find . | sed -e '1d' | xargs rm -rf "
 
         // Continuous download the developer code for application from repo for build test.
