@@ -77,13 +77,13 @@ pipeline {
 
 
 
-    post {
-        always {
-            echo 'post'
-            // Send Email
-            // Trigger Some another job
-            // Update some JIRA Status about the build.
-    }
-    }
+//     post {
+//         always {
+//             echo 'post'
+//             // Send Email
+//             // Trigger Some another job
+//             // Update some JIRA Status about the build.
+//     }
+//     }
 
 
