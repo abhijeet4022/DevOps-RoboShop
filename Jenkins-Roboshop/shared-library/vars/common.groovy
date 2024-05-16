@@ -42,22 +42,13 @@ def codeQuality() {
         env.sonaruser = sh(script: 'aws ssm get-parameter --name "sonarqube.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
         env.sonarpass = sh(script: 'aws ssm get-parameter --name "sonarqube.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
 
-
-        if (codeType == 'maven') {
-            wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
+        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
+            if (codeType == 'maven') {
                 sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
-            }
-
-
-        } else {
-            wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
+            } else {
                 sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true'
             }
-
-
         }
-
-
     }
 }
 
