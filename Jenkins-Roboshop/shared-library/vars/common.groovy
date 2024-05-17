@@ -70,7 +70,7 @@ def release() {
         wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
             // Creating Artifact zip files.
             if (codeType == 'nodejs') {
-                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules'
+                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules ${schemadir}'
             } else if (codeType == 'maven') {
                 sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar'
             } else {
