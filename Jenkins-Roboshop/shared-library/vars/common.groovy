@@ -68,11 +68,12 @@ def release() {
         env.nexuspass = sh(script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
 
         wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
+           sh 'echo ${} > VERSION'
             // Creating Artifact zip files.
             if (codeType == 'nodejs') {
-                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules ${schemadir}'
+                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION ${schemadir}'
             } else if (codeType == 'maven') {
-                sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar'
+                sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar ${schemadir} VERSION'
             } else {
                 sh 'zip -r ${component}-${TAG_NAME}.zip *'
             }
