@@ -1,0 +1,70 @@
+- name: Installing NGINX WebServer.
+  ansible.builtin.yum:
+    name: nginx
+    state: latest
+
+- name: Copying reverse proxy file.
+  ansible.builtin.copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Removing default nginx content.
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Creating Nginx content directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: Downloading the frontend content.
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name: Copying Nginx Configuration file.
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: Restarting NGINX WebServer.
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+
+- name: Create Nginx Prometheus Exporter Directory.
+  ansible.builtin.file:
+    path: /opt/nginx_exporter
+    state: directory
+
+- name: Download Nginx Prometheus Exporter.
+  ansible.builtin.unarchive:
+    src: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
+    dest: /opt/nginx_exporter
+    remote_src: yes
+
+- name: Copy Nginx Prometheus Exporter Service File.
+  ansible.builtin.copy:
+    src: nginx-exporter.service
+    dest: /etc/systemd/system/nginx_exporter.service
+
+- name: Restart Nginx Prometheus Exporter Service.
+  ansible.builtin.systemd:
+    name: nginx_exporter
+    state: restarted
+    enabled: yes
+
+- name: Filebeat Configuration
+  ansible.builtin.import_role:
+    name: elk
+    tasks_from: filebeat
+
+
+
+
+
+

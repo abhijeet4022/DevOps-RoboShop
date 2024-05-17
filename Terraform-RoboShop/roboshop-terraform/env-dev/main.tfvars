@@ -113,7 +113,8 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 1
-    parameters       = []
+    parameters       = ["nexus"]
+    # Nexus role is required to fetch the parameter by app instance to fetch the artifact from nexus.
     tags             = { Monitor_Nginx = "yes" }
   }
   catalogue = {
@@ -123,7 +124,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 2
-    parameters       = ["docdb"]
+    parameters       = ["docdb", "nexus"]
     tags             = {}
   }
   user = {
@@ -133,7 +134,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 3
-    parameters       = ["docdb"]
+    parameters       = ["docdb", "nexus"]
     # User component required docdb endpoint also. So to access docdb parameter for ssm we are passing docdb as well. And for redis parameter it will take care by var.component in local of app module because redis host name is user.dev.* so by component name we can access it.
     tags             = {}
   }
@@ -144,7 +145,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 4
-    parameters       = []
+    parameters       = ["nexus"]
     tags             = {}
   }
   shipping = {
@@ -154,7 +155,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 5
-    parameters       = ["rds"]
+    parameters       = ["rds", "nexus"]
     tags             = {}
   }
   payment = {
@@ -164,7 +165,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 6
-    parameters       = ["rabbitmq"]
+    parameters       = ["rabbitmq", "nexus"]
     tags             = {}
   }
   dispatch = {
@@ -174,7 +175,7 @@ app = {
     max_size         = 3
     min_size         = 1
     priority         = 7
-    parameters       = ["rabbitmq"]
+    parameters       = ["rabbitmq", "nexus"]
     tags             = {}
   }
 }

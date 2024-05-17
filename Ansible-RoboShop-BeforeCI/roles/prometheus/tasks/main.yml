@@ -1,0 +1,21 @@
+- name: Importing Pre_Requisite Tasks.
+  ansible.builtin.import_tasks: pre_requisite.yml
+
+- name: Prometheus Installation
+  ansible.builtin.shell: labauto prometheus-server
+
+- name: Copy Prometheus Configuration
+  ansible.builtin.template:
+    src: prometheus.yml
+    dest: /opt/prometheus/prometheus.yml
+
+- name: Copy Alerts Configuration File
+  ansible.builtin.template:
+    src: alerts.yml
+    dest: /opt/prometheus/alerts.yml
+
+- name: Restart Prometheus
+  ansible.builtin.systemd:
+    name: prometheus
+    state: restarted
+

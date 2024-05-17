@@ -1,0 +1,5 @@
+component: frontend
+agent: true
+log_file: /var/log/nginx/access.log
+log_type: raw
+

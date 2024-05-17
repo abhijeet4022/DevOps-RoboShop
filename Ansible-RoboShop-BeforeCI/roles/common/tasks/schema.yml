@@ -1,0 +1,18 @@
+- name: Copying mongodb repo file file.
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/
+
+- name: Installing MongoDB-ORG-Shell.
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: latest
+
+- name: Download the Amazon DocumentDB Certificate Authority (CA) certificate required to authenticate to your cluster.
+  ansible.builtin.get_url:
+    url: https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+    dest: /app/rds-combined-ca-bundle.pem
+
+
+- name: Load the schema to mongodb.
+  ansible.builtin.shell: mongo --ssl --host {{ lookup('amazon.aws.aws_ssm', 'docdb.{{env}}.endpoint', region='us-east-1') }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username docadmin --password roboshop1234 </app/schema/{{component}}.js

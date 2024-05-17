@@ -1,0 +1,26 @@
+- name: Copying systemd file.
+  ansible.builtin.template:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+
+- name: Reload the {{ component }} service.
+  ansible.builtin.systemd:
+    name: "{{ component }}"
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+
+- name: Setup Rsyslog Conf File.
+  ansible.builtin.template:
+    src: "rsyslog.conf"
+    dest: /etc/rsyslog.d/roboshop.conf
+
+- name: Restarted Rsyslog service.
+  ansible.builtin.systemd:
+    name: "rsyslog"
+    state: restarted
+    enabled: yes
+
+
+
+

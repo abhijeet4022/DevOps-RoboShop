@@ -1,0 +1,26 @@
+# Hostname Setup
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: "{{component}}"
+
+# Install Bash-Completion
+- name: Install Bash-Completion
+  ansible.builtin.yum:
+    name: bash-completion
+    state: latest
+
+# SSM Agent Installation.
+- name: Installing amazon-ssm-agent.
+  ansible.builtin.yum:
+    name: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+    state: latest
+    disable_gpg_check: true
+  when: agent == true
+
+- name: Reload the amazon-ssm-agent service.
+  ansible.builtin.systemd:
+    name: amazon-ssm-agent
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+  when: agent == true

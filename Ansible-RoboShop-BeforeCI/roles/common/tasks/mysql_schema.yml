@@ -1,0 +1,10 @@
+- name: Installing MySQL.
+  ansible.builtin.yum:
+    name: mysql
+    state: installed
+
+- name: Loading the schema.
+  ansible.builtin.shell: mysql -h {{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.DB_HOST', region='us-east-1') }} -u{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_username', region='us-east-1') }} -p{{ lookup('amazon.aws.aws_ssm', 'rds.{{env}}.master_password', region='us-east-1') }} < /app/schema/{{component}}.sql
+
+
+

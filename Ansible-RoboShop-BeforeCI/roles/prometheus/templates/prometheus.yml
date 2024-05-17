@@ -1,0 +1,80 @@
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "alerts.yml"
+# - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+
+# This scrape_configs is for static EC2 we need dynamic value, so we will go with EC2_SD_Config.
+#scrape_configs:
+#  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+#  - job_name: "prometheus"
+#
+#    # metrics_path defaults to '/metrics'
+#    # scheme defaults to 'http'.
+#
+#    static_configs:
+#      - targets: ["localhost:9090"]
+#
+#  - job_name: "Node"
+#    static_configs:
+#      - targets: ["172.31.16.210:9100"]
+
+
+#ec2_sd_configs: By default, prometheus will gather the data from static node this is mentioned in scrape_config but if we need dynamic data, then we will go with ec2_sd_config so whenever new ec2 will launch, it will start gathering the data from the mentioned region.
+# It will fetch the data from all instances, but we need the data from few instances only.
+# So we will use filter. So which instance tagged by "Monitor yes" that will consider.
+
+#  relabel_configs: By default, prometheus will represent the instance only by {instance="10.0.2.148:9100", job="EC2"}, and by this we cannot understand what is this, so we need more info like instance name instance type or any other metadata then we will use relabel_configs.
+scrape_configs:
+  - job_name: 'EC2'
+    ec2_sd_configs:
+      - region: us-east-1
+        port: 9100
+        filters:
+          - name: "tag:Monitor"
+            values: [ "yes" ]
+    relabel_configs:
+      - source_labels: [ __meta_ec2_tag_Name ]
+        target_label: name
+      - source_labels: [ __meta_ec2_tag_env ]
+        target_label: env
+      - source_labels: [ __meta_ec2_instance_state ]
+        target_label: instance_state
+      - source_labels: [ __meta_ec2_instance_type ]
+        target_label: instance_type
+
+  - job_name: 'Nginx'
+    ec2_sd_configs:
+      - region: us-east-1
+        port: 9113
+        filters:
+          - name: "tag:Monitor_Nginx"
+            values: [ "yes" ]
+    relabel_configs:
+      - source_labels: [ __meta_ec2_tag_Name ]
+        target_label: name
+      - source_labels: [ __meta_ec2_tag_env ]
+        target_label: env
+      - source_labels: [ __meta_ec2_instance_state ]
+        target_label: instance_state
+      - source_labels: [ __meta_ec2_instance_type ]
+        target_label: instance_type
+
+
+
+# ansible-pull -i localhost, -U https://github.com/abhijeet4022/DevOps-RoboShop.git Ansible-RoboShop/elasticsearch.yml -e component=prometheus &>> /opt/roboshop.log

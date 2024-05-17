@@ -1,0 +1,41 @@
+- name: Set a Hostname
+  ansible.builtin.hostname:
+    name: elk
+
+- name: Copying ElasticSearch Repo File
+  ansible.builtin.template:
+    src: "elk.repo"
+    dest: /etc/yum.repos.d/
+
+- name: Installing ElasticSearch, Kibana & Nginx
+  ansible.builtin.yum:
+    name:
+      - elasticsearch
+      - kibana
+      - nginx
+      - bash-completion
+    state: installed
+
+- name: Restart ElasticSearch Service.
+  ansible.builtin.systemd:
+    name: elasticsearch
+    state: restarted
+    enabled: yes
+    daemon_reload: true
+
+- name: Restart Kibana.
+  ansible.builtin.systemd:
+    name: kibana
+    state: restarted
+    enabled: yes
+
+- name: Copying Nginx_Proxy Conf File.
+  ansible.builtin.template:
+    src: "http-proxy.conf"
+    dest: /etc/nginx/nginx.conf
+
+- name: Restart Nginx Service.
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: yes

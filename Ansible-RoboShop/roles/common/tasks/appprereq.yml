@@ -1,3 +1,7 @@
+- name: Creating Application User.
+  ansible.builtin.user:
+    name: roboshop
+
 - name: Removing Old Application directory.
   ansible.builtin.file:
     path: /app
@@ -8,13 +12,22 @@
     path: /app
     state: directory
 
-- name: Downloading the application content.
-  ansible.builtin.unarchive:
-      src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
-      dest: /app/
-      remote_src: yes
+#- name: Downloading the application content.
+#  ansible.builtin.unarchive:
+#      src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+#      dest: /app/
+#      remote_src: yes
 
-- name: Creating Application User.
-  ansible.builtin.user:
-    name: roboshop
+- name: Downloading the application content for Nexus.
+  ansible.builtin.unarchive:
+    src: http://{{username}}:{{password}}@172.31.10.247:8081/repository/{{component}}/{{component}}-{{appVersion}}.zip
+    dest: /app/
+    remote_src: yes
+  vars:
+    username: "{{ lookup('amazon.aws.aws_ssm', 'nexus.username', region='us-east-1') }}"
+    password: "{{ lookup('amazon.aws.aws_ssm', 'nexus.password', region='us-east-1') }}"
+    appVersion: "{{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.appVersion', region='us-east-1') }}"
+
+
+
 
