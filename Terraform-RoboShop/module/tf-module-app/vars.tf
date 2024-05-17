@@ -27,5 +27,7 @@ variable "priority" {}
 variable "parameters" {}
 variable "monitoring_ingress_cidr" {}
 
+variable "az" {}
+
 
 

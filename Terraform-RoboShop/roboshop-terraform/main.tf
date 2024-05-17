@@ -127,15 +127,16 @@ module "rabbitmq" {
 # Application Setup
 module "app" {
   depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
-  source = "../module/tf-module-app"
+  source     = "../module/tf-module-app"
 
 
-  tags             = merge(var.tags, each.value["tags"])
-  env              = var.env
-  zone_id          = var.zone_id
-  ssh_subnets_cidr = var.ssh_subnets_cidr
-  default_vpc_id   = var.default_vpc_id
+  tags                    = merge(var.tags, each.value["tags"])
+  env                     = var.env
+  zone_id                 = var.zone_id
+  ssh_subnets_cidr        = var.ssh_subnets_cidr
+  default_vpc_id          = var.default_vpc_id
   monitoring_ingress_cidr = var.monitoring_ingress_cidr
+  az                      = var.az
 
   for_each         = var.app
   component        = each.key
