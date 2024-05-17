@@ -18,11 +18,22 @@
     path: /usr/share/nginx/html
     state: directory
 
-- name: Downloading the frontend content.
+#- name: Downloading the frontend content.
+#  ansible.builtin.unarchive:
+#    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+#    dest: /usr/share/nginx/html
+#    remote_src: yes
+
+- name: Downloading the frontend content from Nexus.
   ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    src: http://{{username}}:{{password}}@172.31.10.247:8081/repository/{{component}}/{{component}}-{{appVersion}}.zip
     dest: /usr/share/nginx/html
     remote_src: yes
+  vars:
+    username: "{{ lookup('amazon.aws.aws_ssm', 'nexus.{{env}}.username', region='us-east-1') }}"
+    password: "{{ lookup('amazon.aws.aws_ssm', 'nexus.{{env}}.password', region='us-east-1') }}"
+    appVersion: "{{ lookup('amazon.aws.aws_ssm', '{{component}}.{{env}}.appVersion', region='us-east-1') }}"
+
 
 - name: Copying Nginx Configuration file.
   ansible.builtin.copy:

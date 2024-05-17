@@ -15,10 +15,10 @@
 - name: Catalogue Configuration
   ansible.builtin.import_tasks: appprereq.yml
 
-- name: Installing the application dependency.
-  ansible.builtin.shell: npm install
-  args:
-    chdir: /app
+#- name: Installing the application dependency.
+#  ansible.builtin.shell: npm install
+#  args:
+#    chdir: /app
 
 - name: Schema setup
   ansible.builtin.import_tasks: schema.yml
