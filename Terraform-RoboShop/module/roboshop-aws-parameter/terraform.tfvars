@@ -67,6 +67,10 @@ parameters = {
   "nexus.username" = { type = "String", value = "admin" }
   "nexus.password" = { type = "SecureString", value = "DevOps321" }
 
+  #Nexus for Ansible
+  "nexus.dev.username" = { type = "String", value = "admin" }
+  "nexus.dev.password" = { type = "SecureString", value = "DevOps321" }
+
 
 
   ##AppVersion
