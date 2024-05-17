@@ -61,4 +61,10 @@ parameters = {
   "sonarqube.username" = { type = "String", value = "admin" }
   "sonarqube.password" = { type = "SecureString", value = "DevOps321" }
 
+  #Nexus for jenkins
+  "nexus.username" = { type = "String", value = "admin" }
+  "nexus.password" = { type = "SecureString", value = "DevOps321" }
+
+
+
 }

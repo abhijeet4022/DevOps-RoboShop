@@ -4,7 +4,7 @@ def compile() {
 
     }
 
-    stage('Compile Code') {
+    stage('CodeCompile') {
         if (env.codeType == "nodejs") {
             sh 'npm install'
         }
@@ -17,7 +17,7 @@ def compile() {
 
 
 def test() {
-    stage('UnitTest') {
+    stage('UnitTesting') {
         if (env.codeType == "nodejs") {
             print 'ok'
             // sh 'npm test'
@@ -38,16 +38,16 @@ def test() {
 }
 
 def codeQuality() {
-    stage('Code Quality') {
+    stage('CodeQualityCheck') {
         env.sonaruser = sh(script: 'aws ssm get-parameter --name "sonarqube.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
         env.sonarpass = sh(script: 'aws ssm get-parameter --name "sonarqube.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
 
         wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
             if (codeType == 'maven') {
-              //  sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
+                //  sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
                 print 'ok'
             } else {
-             //   sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true'
+                //   sh 'sonar-scanner -Dsonar.host.url=http://172.31.18.50:9000 -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpass} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true'
                 print 'ok'
             }
         }
@@ -56,14 +56,31 @@ def codeQuality() {
 
 
 def codeSecurity() {
-    stage('Code Security') {
-        print 'Hello'
+    stage('CodeSecurity') {
+        print 'Skipping Code Security Because Checkmarx security checking tool is not free'
     }
 }
 
 def release() {
-    stage('Release') {
-        print 'Hello'
+    stage('VersionRelease') {
+
+        env.nexususer = sh(script: 'aws ssm get-parameter --name "nexus.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+        env.nexuspass = sh(script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+
+        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
+            // Creating Artifact zip files.
+            if (codeType == 'nodejs') {
+                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules'
+            } else if (codeType == 'maven') {
+                sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar'
+            } else {
+                sh 'zip -r ${component}-${TAG_NAME}.zip *'
+            }
+
+            // Copying the artifact to nexus repository, repository already created by the component name.
+            sh 'curl -v -u ${nexususer}:${nexuspass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.10.247:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+
+        }
     }
 }
 
