@@ -16,7 +16,7 @@ tags = {
 }
 
 az                  = ["us-east-1a", "us-east-1b"]
-acm_certificate_arn = "arn:aws:acm:us-east-1:767398040211:certificate/77326df3-1d93-43f0-a09c-86baf6cdca63"
+acm_certificate_arn = "arn:aws:acm:us-east-1:767398040211:certificate/ba167f9e-4dfb-4bcf-bb02-32106f498202"
 
 vpc = {
   main = {
