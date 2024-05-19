@@ -14,6 +14,7 @@ variable "acm_certificate_arn" {}
 # DocumentDB
 
 variable "docdb" {}
+variable "kms_key_arn" {}
 
 # Aurora_MYSQL
 

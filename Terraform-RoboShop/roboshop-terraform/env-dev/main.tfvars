@@ -17,6 +17,7 @@ tags = {
 
 az                  = ["us-east-1a", "us-east-1b"]
 acm_certificate_arn = "arn:aws:acm:us-east-1:767398040211:certificate/ba167f9e-4dfb-4bcf-bb02-32106f498202"
+kms_key_arn         = "arn:aws:kms:us-east-1:767398040211:key/2e711605-a22c-4302-9087-c8ef84499250"
 
 vpc = {
   main = {

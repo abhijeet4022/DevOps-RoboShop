@@ -41,8 +41,9 @@ module "alb" {
 module "docdb" {
   source = "../module/tf-module-docdb"
 
-  tags = var.tags
-  env  = var.env
+  tags        = var.tags
+  env         = var.env
+  kms_key_arn = var.kms_key_arn
 
   for_each                = var.docdb
   engine_family           = each.value["engine_family"]
@@ -62,8 +63,9 @@ module "docdb" {
 module "rds" {
   source = "../module/tf-module-rds"
 
-  tags = var.tags
-  env  = var.env
+  tags        = var.tags
+  env         = var.env
+  kms_key_arn = var.kms_key_arn
 
   for_each                = var.rds
   backup_retention_period = each.value["backup_retention_period"]
@@ -112,6 +114,7 @@ module "rabbitmq" {
   env              = var.env
   zone_id          = var.zone_id
   ssh_subnets_cidr = var.ssh_subnets_cidr
+  kms_key_arn      = var.kms_key_arn
 
   for_each      = var.rabbitmq
   instance_type = each.value["instance_type"]

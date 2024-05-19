@@ -7,3 +7,4 @@ variable "sg_port" {}
 variable "instance_type" {}
 variable "zone_id" {}
 variable "db_subnets_ids" {}
+variable "kms_key_arn" {}
