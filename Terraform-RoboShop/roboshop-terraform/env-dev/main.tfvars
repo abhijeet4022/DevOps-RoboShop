@@ -15,7 +15,8 @@ tags = {
   Create_By     = "Terraform"
 }
 
-az = ["us-east-1a", "us-east-1b"]
+az                  = ["us-east-1a", "us-east-1b"]
+acm_certificate_arn = "arn:aws:acm:us-east-1:767398040211:certificate/77326df3-1d93-43f0-a09c-86baf6cdca63"
 
 vpc = {
   main = {
@@ -45,7 +46,7 @@ alb = {
     internal           = false
     load_balancer_type = "application"
     sg_ingress_cidr    = ["0.0.0.0/0"]
-    sg_port            = 80
+    sg_port            = 443
   }
   private = {
     internal           = true

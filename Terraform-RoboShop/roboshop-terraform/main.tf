@@ -21,8 +21,9 @@ module "vpc" {
 module "alb" {
   source = "../module/tf-module-alb"
 
-  tags = var.tags
-  env  = var.env
+  tags                = var.tags
+  env                 = var.env
+  acm_certificate_arn = var.acm_certificate_arn
 
   for_each           = var.alb
   internal           = each.value["internal"]

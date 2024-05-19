@@ -9,6 +9,7 @@ variable "az" {}
 
 # ALB Variables
 variable "alb" {}
+variable "acm_certificate_arn" {}
 
 # DocumentDB
 
