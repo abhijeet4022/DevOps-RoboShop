@@ -27,10 +27,9 @@ resource "aws_lb_listener" "main" {
   }
 }
 
-
 # Redirect public LB http request to https.
 resource "aws_lb_listener" "frontend" {
-  count = var.internal ? 0 : 1
+  count             = var.internal ? 0 : 1
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
@@ -67,4 +66,15 @@ resource "aws_security_group" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+}
+
+# Adding port 80 in SG for public alb
+resource "aws_security_group_rule" "main" {
+  count             = var.internal ? 0 : 1
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = var.sg_ingress_cidr
+  security_group_id = aws_security_group.main.id
 }
