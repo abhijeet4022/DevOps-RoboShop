@@ -8,10 +8,10 @@
 - name: Importing App Prerequisite Tasks.
   ansible.builtin.import_tasks: appprereq.yml
 
-- name: Downloading Dependencies and making artifact.
-  ansible.builtin.shell: mvn clean package ; mv /app/target/{{component}}-1.0.jar /app/{{component}}.jar
-  args:
-    chdir: /app
+#- name: Downloading Dependencies and making artifact.
+#  ansible.builtin.shell: mvn clean package ; mv /app/target/{{component}}-1.0.jar /app/{{component}}.jar
+#  args:
+#    chdir: /app
 
 - name: Importing Schema Setup Tasks.
   ansible.builtin.import_tasks: mysql_schema.yml
