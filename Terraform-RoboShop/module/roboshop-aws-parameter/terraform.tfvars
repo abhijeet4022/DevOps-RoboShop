@@ -76,7 +76,7 @@ parameters = {
   ##AppVersion
   "frontend.dev.appVersion"  = { type = "String", value = "1.0.0" }
   "catalogue.dev.appVersion" = { type = "String", value = "1.0.2" }
-  "user.dev.appVersion"      = { type = "String", value = "1.0.1" }
+  "user.dev.appVersion"      = { type = "String", value = "1.0.2" }
   "cart.dev.appVersion"      = { type = "String", value = "1.0.0" }
   "shipping.dev.appVersion"  = { type = "String", value = "1.0.2" }
   "payment.dev.appVersion"   = { type = "String", value = "1.0.0" }
