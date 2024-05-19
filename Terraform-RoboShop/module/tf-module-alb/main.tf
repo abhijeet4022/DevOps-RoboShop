@@ -28,6 +28,25 @@ resource "aws_lb_listener" "main" {
 }
 
 
+# Redirect public LB http request to https.
+resource "aws_lb_listener" "frontend" {
+  count = var.internal ? 0 : 1
+  load_balancer_arn = aws_lb.main.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+
 # Security Group Creation
 resource "aws_security_group" "main" {
   name        = local.sg_name
