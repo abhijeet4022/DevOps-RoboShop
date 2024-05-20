@@ -141,6 +141,7 @@ module "app" {
   default_vpc_id          = var.default_vpc_id
   monitoring_ingress_cidr = var.monitoring_ingress_cidr
   az                      = var.az
+  kms_key_arn             = var.kms_key_arn
 
   for_each         = var.app
   component        = each.key
