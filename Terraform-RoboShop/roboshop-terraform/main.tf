@@ -163,6 +163,15 @@ module "app" {
   public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 }
 
+# Create Instance for load test
+resource "aws_instance" "load_runner" {
+  ami                    = data.aws_ami.ami.id
+  instance_type          = "t3.small"
+  vpc_security_group_ids = ["sg-062c9c57661d1416a"]
+  tags                   = { Name = "load-Runner" }
+
+}
+
 # Prometheus Instance Creation.
 #module "prometheus" {
 #  source = "../module/tf-module-prometheus"
