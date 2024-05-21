@@ -1,3 +1,3 @@
 bucket = "learntechnology.cloud"
-key    = "dev/terraform.tfstate"
+key    = "prod/terraform.tfstate"
 region = "us-east-1"
