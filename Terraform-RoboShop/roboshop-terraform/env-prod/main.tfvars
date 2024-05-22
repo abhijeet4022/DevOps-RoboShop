@@ -27,7 +27,7 @@ vpc = {
 
       public = {
         public1 = { cidr = "10.50.0.0/24", az = "us-east-1a" }
-        public2 = { cidr = "10.0.1.0/24", az = "us-east-1b" }
+        public2 = { cidr = "10.50.1.0/24", az = "us-east-1b" }
       }
       app = {
         app1 = { cidr = "10.50.2.0/24", az = "us-east-1a" }
