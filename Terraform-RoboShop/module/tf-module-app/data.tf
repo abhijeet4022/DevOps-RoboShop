@@ -1,7 +1,7 @@
 data "aws_ami" "ami" {
   most_recent = true
   name_regex  = "roboshop-ami-v1"
-  owners      = ["973714476881"]
+  owners      = ["767398040211"]
 }
 
 # To fetch the private ip of LB
