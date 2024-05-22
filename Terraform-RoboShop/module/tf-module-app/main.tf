@@ -98,7 +98,7 @@ resource "aws_autoscaling_group" "main" {
 # Route53 Record Creation.
 resource "aws_route53_record" "main" {
   zone_id = var.zone_id
-  name    = var.component == "frontend" ? "${var.env}" : "${var.component}-${var.env}"
+  name    = var.component == "frontend" ? "${var.env == "prod" ? "www" : var.env}" : "${var.component}-${var.env}"
   type    = "CNAME"
   ttl     = 10
   records = [var.component == "frontend" ? var.public_alb_name : var.private_alb_name]
