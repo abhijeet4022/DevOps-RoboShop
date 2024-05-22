@@ -16,7 +16,7 @@ data "aws_ami" "ami" {
 
 # Fetch the SG id
 data "aws_security_group" "id" {
-  name = "allow_all"
+  name = "allow-all"
 }
 
 # Instance Creation
