@@ -78,7 +78,7 @@ resource "aws_autoscaling_group" "main" {
   max_size                  = var.max_size
   min_size                  = var.min_size
   health_check_grace_period = 300
-  health_check_type         = "ELB"
+  health_check_type         = var.component == "dispatch" ? "EC2" : "ELB"
   force_delete              = true
   target_group_arns         = [aws_lb_target_group.main.arn]
   launch_template {
