@@ -152,10 +152,10 @@ app = {
   }
   shipping = {
     sg_port          = 8080
-    instance_type    = "t3.small"
-    desired_capacity = 1
+    instance_type    = "t3.medium"
+    desired_capacity = 2
     max_size         = 10
-    min_size         = 1
+    min_size         = 2
     priority         = 5
     parameters       = ["rds", "nexus"]
     tags             = {}
@@ -170,16 +170,16 @@ app = {
     parameters       = ["rabbitmq", "nexus"]
     tags             = {}
   }
-  dispatch = {
-    sg_port          = 8080
-    instance_type    = "t3.small"
-    desired_capacity = 1
-    max_size         = 10
-    min_size         = 1
-    priority         = 7
-    parameters       = ["rabbitmq", "nexus"]
-    tags             = {}
-  }
+#  dispatch = {
+#    sg_port          = 8080
+#    instance_type    = "t3.small"
+#    desired_capacity = 1
+#    max_size         = 10
+#    min_size         = 1
+#    priority         = 7
+#    parameters       = ["rabbitmq", "nexus"]
+#    tags             = {}
+#  }
 }
 
 prometheus = {
