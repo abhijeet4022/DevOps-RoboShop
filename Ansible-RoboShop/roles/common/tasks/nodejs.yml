@@ -1,20 +1,26 @@
-#- name: Importing SSM-Agent Tasks.
-#  ansible.builtin.import_tasks: amazon-ssm-agent.yml
+- name: Check nodejs is installed or not.
+  ansible.builtin.shell: type npm
+  register: command_status
+  ignore_errors: yes
 
 - name: Disable current nodejs module.
   ansible.builtin.shell: dnf module disable nodejs -y
+  when: command_status.rc != 0
 
 - name: Enable current nodejs module.
   ansible.builtin.shell: dnf module enable nodejs:18 -y
+  when: command_status.rc != 0
 
 - name: Installing NodeJS.
   ansible.builtin.yum:
     name: nodejs
     state: latest
+  when: command_status.rc != 0
 
 - name: Catalogue Configuration
   ansible.builtin.import_tasks: appprereq.yml
 
+# Dependency installation is not required for nodejs because it's taken care by jenkins. Artifact is coming with packed dependency.
 #- name: Installing the application dependency.
 #  ansible.builtin.shell: npm install
 #  args:

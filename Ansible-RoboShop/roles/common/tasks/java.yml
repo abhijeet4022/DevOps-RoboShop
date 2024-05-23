@@ -1,7 +1,16 @@
+# To install whole maven, it's taking time which is not required, so we are only installing java-17-openjdk, and also maven is not required because artifact coming with dependency handled with jenkins.
+
+#- name: Installing the Maven and MySql.
+#  ansible.builtin.yum:
+#    name:
+#      - maven
+#      - mysql
+#    state: installed
+
 - name: Installing the Maven and MySql.
   ansible.builtin.yum:
     name:
-      - maven
+      - java-17-openjdk
       - mysql
     state: installed
 
@@ -9,7 +18,7 @@
   ansible.builtin.import_tasks: appprereq.yml
 
 #- name: Downloading Dependencies and making artifact.
-#  ansible.builtin.shell: mvn clean package ; mv /app/target/{{component}}-1.0.jar /app/{{component}}.jar
+#  ansible.builtin.shell: mvn clean package; mv /app/target/{{component}}-1.0.jar /app/{{component}}.jar
 #  args:
 #    chdir: /app
 
