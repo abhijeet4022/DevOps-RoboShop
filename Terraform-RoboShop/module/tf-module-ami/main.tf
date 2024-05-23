@@ -37,8 +37,8 @@ resource "null_resource" "commands" {
   }
   provisioner "remote-exec" {
     inline = [
-      "yum install ansible bash-completion python3.11-pip.noarch -y &>> /opt/userdata.log",
-      "pip3.11 install botocore boto3 &>> /opt/userdata.log",
+      "yum install ansible bash-completion python3.11-pip.noarch -y",
+      "pip3.11 install botocore boto3",
     ]
   }
 }
