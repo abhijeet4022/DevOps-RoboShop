@@ -8,7 +8,7 @@
             <configVersion>2</configVersion>
             <userRemoteConfigs>
                 <hudson.plugins.git.UserRemoteConfig>
-                    <url>https://github.com/abhijeet4022/DevOps-RoboShop.git</url>
+                    <url>{{ item.repo_name}}</url>
                 </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>
@@ -20,7 +20,7 @@
             <submoduleCfg class="empty-list"/>
             <extensions/>
         </scm>
-        <scriptPath>Jenkinsfile</scriptPath>
+        <scriptPath>Ansible-RoboShop/Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>

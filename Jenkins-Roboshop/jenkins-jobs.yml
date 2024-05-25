@@ -7,6 +7,7 @@
     folders:
       - { folder_name: "CI-Pipeline" }
       - { folder_name: "infra-jobs" }
+      - { folder_name: "App-Deployment" }
     mjob:
       - { job_name: "frontend", repo_name: "https://github.com/abhijeet4022/frontend.git", folder_name: "CI-Pipeline"}
       - { job_name: "catalogue", repo_name: "https://github.com/abhijeet4022/catalogue.git", folder_name: "CI-Pipeline"}
@@ -16,3 +17,4 @@
       - { job_name: "payment", repo_name: "https://github.com/abhijeet4022/payment.git", folder_name: "CI-Pipeline"}
     sjob:
       - { job_name: "roboshop-terraform", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "infra-jobs"}
+      - { job_name: "app-deployment", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "App-Deployment"}
