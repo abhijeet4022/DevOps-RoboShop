@@ -1,26 +1,28 @@
-pipeline {
+def call() {
 
-    agent any
+    pipeline {
 
-    options {
-        ansiColor('xterm')
-        buildDiscarder(logRotator(numToKeepStr: '3'))
-    }
+        agent any
 
-    environment {
-        SSH = credentials("centos-ssh")
-    }
+        options {
+            ansiColor('xterm')
+            buildDiscarder(logRotator(numToKeepStr: '3'))
+        }
 
-    stages {
-        stage('SSH') {
-            steps {
-                echo "${SSH_PSW}"
-                echo "${SSH_USR}"
+        environment {
+            SSH = credentials("centos-ssh")
+        }
+
+        stages {
+            stage('SSH') {
+                steps {
+                    echo "${SSH_PSW}"
+                    echo "${SSH_USR}"
+                }
             }
         }
+
     }
-
 }
-
 
 
