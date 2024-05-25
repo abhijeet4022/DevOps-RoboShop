@@ -14,7 +14,8 @@ pipeline {
     stages {
         stage('SSH') {
             steps {
-                echo SSH
+                echo ${SSH_PSW}
+                echo ${SSH_USR}
             }
         }
     }
