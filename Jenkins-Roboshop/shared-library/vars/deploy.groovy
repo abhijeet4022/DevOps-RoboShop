@@ -31,12 +31,13 @@ def call() {
             }
 
             stage('Application Deployment') {
-                sh '''
+                steps {
+                    sh '''
                     aws ec2 describe-instances --filters "Name=tag:Name,Values=prod-shipping" --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text > inv
                     ansible-playbook -i inv Ansible-RoboShop/main.yml -e ansible_user=${SSH_USR} -e ansible_password=${SSH_PSW} -e component=${COMPONENT} -e env=${ENV}
 '''
 
-
+                }
             }
         }
 
