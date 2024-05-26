@@ -3,3 +3,4 @@ schema: true
 agent: true
 log_file: /var/log/shipping.log
 log_type: raw
+DBNAME: cities

@@ -130,6 +130,7 @@ resource "aws_lb_target_group" "main" {
   name     = local.name_prefix
   port     = var.sg_port
   protocol = "HTTP"
+  deregistration_delay = 15
   vpc_id   = var.vpc_id
   health_check {
     enabled             = true
