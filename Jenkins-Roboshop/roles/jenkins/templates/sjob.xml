@@ -20,7 +20,7 @@
             <submoduleCfg class="empty-list"/>
             <extensions/>
         </scm>
-        <scriptPath>Ansible-RoboShop/Jenkinsfile</scriptPath>
+        <scriptPath>{{ item.jenkinsfile}}/Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
