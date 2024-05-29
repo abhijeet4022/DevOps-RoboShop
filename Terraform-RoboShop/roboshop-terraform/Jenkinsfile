@@ -18,6 +18,7 @@ pipeline {
         sh 'pwd'
         sh 'cd Terraform-RoboShop/roboshop-terraform/'
         sh 'ls'
+        sh 'ls -lA Terraform-RoboShop/roboshop-terraform/'
 
         //sh 'make ${ENV}'
       }
