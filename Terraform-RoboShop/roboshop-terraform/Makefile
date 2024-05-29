@@ -20,7 +20,7 @@ dev:
 #	terraform apply -auto-approve -var-file=env-prod/main.tfvars 2>&1 | tee terraform_apply.log
 
 prod:
-	git pull &>> /dev/null
+	#git pull &>> /dev/null
 	rm -rf .terraform
 	terraform init -backend-config=env-prod/state.tfvars
 	terraform apply -auto-approve -var-file=env-prod/main.tfvars
