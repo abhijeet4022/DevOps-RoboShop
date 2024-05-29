@@ -239,3 +239,5 @@ resource "aws_security_group_rule" "https-to-eks-from-workstation" {
   type              = "ingress"
   cidr_blocks       = var.ssh_subnets_cidr
 }
+
+# security_group_id = module.eks.cluster_security_group_id  -- This cluster_security_group_id will defined in main module
