@@ -1,6 +1,6 @@
 - name: Copy SingleBranch_Pipeline Config File - {{ item.job_name}}.
   ansible.builtin.template:
-    src: helm.xml
+    src: sjob.xml
     dest: /tmp/helm.xml
 
 - name: Create a SingleBranch_Pipeline jenkins job - {{ item.job_name}}.
