@@ -1,36 +1,25 @@
-
+// Run the terraform code
 pipeline {
-    // agent any
-
-    // Mention the nodes.
-    agent { node { label 'workstation' } }
-
-    // Poliscm trigger to fetch the changes every one minute.
-    triggers { pollSCM('*/3 * * * *') }
-
+  agent any
     // Ansi Colour options
-    options {
-        ansiColor('xterm')
-        buildDiscarder(logRotator(numToKeepStr: '3'))
-    }
+  options {
+    ansiColor('xterm')
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+  }
 
-    // Access Variables.
-    environment {
-    TEST_URL = "google.com"
-    SSH = credentials("centos-ssh")
-    }
+  parameters {
+    string(name: 'ENV', defaultValue: 'prod', description: 'Environment')
+  }
 
-    // Access the secret that is stored in Jenkins.
-    // environment { SSH = credentials("centos-ssh")}
 
-    stages {
-        stage('Compile') {
-            steps {
-                echo TEST_URL
-                echo SSH
-            }
-        }
-
-    }
+  stages {
+    stage('Terraform Apply') {
+      steps {
+        //sh 'make ${ENV}'
+        print 'test'
+      }
+  }}
 }
+
+
 
