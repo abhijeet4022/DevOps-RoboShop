@@ -13,3 +13,9 @@
   ansible.builtin.include_tasks:
     file: sjob.yml
   loop: "{{ sjob }}"
+
+
+- name: Create Single Branch Pipeline Jobs.
+  ansible.builtin.include_tasks:
+    file: sjob.yml
+  loop: "{{ helm }}"
