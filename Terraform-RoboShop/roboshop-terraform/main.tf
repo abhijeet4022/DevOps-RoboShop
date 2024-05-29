@@ -128,49 +128,49 @@ module "rabbitmq" {
 }
 
 
-# Application Setup
-module "app" {
-  depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
-  source     = "../module/tf-module-app"
+## Application Setup
+#module "app" {
+#  depends_on = [module.docdb, module.elasticache, module.rabbitmq, module.rds, module.alb]
+#  source     = "../module/tf-module-app"
+#
+#
+#  tags                    = merge(var.tags, each.value["tags"])
+#  env                     = var.env
+#  zone_id                 = var.zone_id
+#  ssh_subnets_cidr        = var.ssh_subnets_cidr
+#  default_vpc_id          = var.default_vpc_id
+#  monitoring_ingress_cidr = var.monitoring_ingress_cidr
+#  az                      = var.az
+#  kms_key_arn             = var.kms_key_arn
+#
+#  for_each         = var.app
+#  component        = each.key
+#  sg_port          = each.value["sg_port"]
+#  instance_type    = each.value["instance_type"]
+#  desired_capacity = each.value["desired_capacity"]
+#  max_size         = each.value["max_size"]
+#  min_size         = each.value["min_size"]
+#  priority         = each.value["priority"]
+#  parameters       = each.value["parameters"]
+#
+#  vpc_id           = local.vpc_id
+#  app_subnets_cidr = local.app_subnets_cidr
+#  app_subnets_ids  = local.app_subnets_ids
+#
+#  private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
+#  private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
+#  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+#  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
+#}
 
-
-  tags                    = merge(var.tags, each.value["tags"])
-  env                     = var.env
-  zone_id                 = var.zone_id
-  ssh_subnets_cidr        = var.ssh_subnets_cidr
-  default_vpc_id          = var.default_vpc_id
-  monitoring_ingress_cidr = var.monitoring_ingress_cidr
-  az                      = var.az
-  kms_key_arn             = var.kms_key_arn
-
-  for_each         = var.app
-  component        = each.key
-  sg_port          = each.value["sg_port"]
-  instance_type    = each.value["instance_type"]
-  desired_capacity = each.value["desired_capacity"]
-  max_size         = each.value["max_size"]
-  min_size         = each.value["min_size"]
-  priority         = each.value["priority"]
-  parameters       = each.value["parameters"]
-
-  vpc_id           = local.vpc_id
-  app_subnets_cidr = local.app_subnets_cidr
-  app_subnets_ids  = local.app_subnets_ids
-
-  private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
-  private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
-  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
-  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
-}
-
-# Create Instance for load test
-resource "aws_instance" "load_runner" {
-  ami                    = data.aws_ami.ami.id
-  instance_type          = "t3.small"
-  vpc_security_group_ids = ["sg-062c9c57661d1416a"]
-  tags                   = { Name = "load-Runner" }
-
-}
+## Create Instance for load test
+#resource "aws_instance" "load_runner" {
+#  ami                    = data.aws_ami.ami.id
+#  instance_type          = "t3.small"
+#  vpc_security_group_ids = ["sg-062c9c57661d1416a"]
+#  tags                   = { Name = "load-Runner" }
+#
+#}
 
 # Prometheus Instance Creation.
 #module "prometheus" {
@@ -187,3 +187,55 @@ resource "aws_instance" "load_runner" {
 #  to_port       = each.value["to_port"]
 #  component     = each.key
 #}
+
+
+# EKS Setup
+
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 19.0"
+
+  cluster_name    = "prod-roboshop"
+  cluster_version = "1.28"
+
+  cluster_endpoint_public_access  = false
+
+  cluster_addons = {
+    coredns = {
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent = true
+    }
+  }
+
+  vpc_id                   = local.vpc_id
+  subnet_ids               = local.app_subnets_ids
+  control_plane_subnet_ids = local.app_subnets_ids
+
+
+  eks_managed_node_groups = {
+    green = {
+      min_size     = 1
+      max_size     = 10
+      desired_size = 3
+
+      instance_types = ["t3.large"]
+      capacity_type  = "SPOT"
+    }
+  }
+
+  tags = var.tags
+}
+
+resource "aws_security_group_rule" "https-to-eks-from-workstation" {
+  from_port         = 443
+  protocol          = "tcp"
+  security_group_id = module.eks.cluster_security_group_id
+  to_port           = 443
+  type              = "ingress"
+  cidr_blocks       = var.ssh_subnets_cidr
+}
