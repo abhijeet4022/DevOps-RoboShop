@@ -16,7 +16,10 @@ pipeline {
     stage('Terraform Apply') {
       steps {
         sh 'pwd'
-        sh 'make ${ENV}'
+        sh 'cd Terraform-RoboShop/roboshop-terraform/'
+        sh 'ls'
+
+        //sh 'make ${ENV}'
       }
   }}
 }
