@@ -15,8 +15,8 @@ pipeline {
   stages {
     stage('Terraform Apply') {
       steps {
-        //sh 'make ${ENV}'
-        print 'test'
+        sh 'make ${ENV}'
+
       }
   }}
 }
