@@ -18,3 +18,4 @@
     sjob:
       - { job_name: "roboshop-terraform", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "infra-jobs", jenkinsfile: "Terraform-RoboShop/roboshop-terraform"}
       - { job_name: "app-deployment", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "App-Deployment", jenkinsfile: "Ansible-RoboShop"}
+      - { job_name: "helm-deployment", repo_name: "https://github.com/abhijeet4022/helm.git", folder_name: "App-Deployment", jenkinsfile: "."}
