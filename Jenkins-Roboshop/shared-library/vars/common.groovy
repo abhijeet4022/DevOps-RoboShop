@@ -61,27 +61,39 @@ def codeSecurity() {
     }
 }
 
+//def release() {
+//    stage('VersionRelease') {
+//
+//        env.nexususer = sh(script: 'aws ssm get-parameter --name "nexus.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+//        env.nexuspass = sh(script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+//
+//        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
+//            sh 'echo ${TAG_NAME} > VERSION'
+//            // Creating Artifact zip files.
+//            if (codeType == 'nodejs') {
+//                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION ${schemadir}'
+//            } else if (codeType == 'maven') {
+//                sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar ${schemadir} VERSION'
+//            } else {
+//                sh 'zip -r ${component}-${TAG_NAME}.zip *'
+//            }
+//
+//            // Copying the artifact to nexus repository, repository already created by the component name.
+//            sh 'curl -v -u ${nexususer}:${nexuspass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.10.247:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+//
+//        }
+//    }
+//}
+
+
 def release() {
-    stage('VersionRelease') {
+    stage('Image Release To ECR') {
+        sh '''
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398040211.dkr.ecr.us-east-1.amazonaws.com
+            docker build -t 767398040211.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} .
+            docker push 767398040211.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}
 
-        env.nexususer = sh(script: 'aws ssm get-parameter --name "nexus.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
-        env.nexuspass = sh(script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
-
-        wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
-            sh 'echo ${TAG_NAME} > VERSION'
-            // Creating Artifact zip files.
-            if (codeType == 'nodejs') {
-                sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION ${schemadir}'
-            } else if (codeType == 'maven') {
-                sh 'cp target/${component}-1.0.jar ${component}.jar ; zip -r ${component}-${TAG_NAME}.zip ${component}.jar ${schemadir} VERSION'
-            } else {
-                sh 'zip -r ${component}-${TAG_NAME}.zip *'
-            }
-
-            // Copying the artifact to nexus repository, repository already created by the component name.
-            sh 'curl -v -u ${nexususer}:${nexuspass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.10.247:8081/repository/${component}/${component}-${TAG_NAME}.zip'
-
-        }
+'''
     }
 }
 
