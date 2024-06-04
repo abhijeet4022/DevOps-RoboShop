@@ -159,9 +159,9 @@ parameters = {
 
 
   # Parameter for Init Container
-  catalogue.prod.MONGO_URL = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
+  "catalogue.prod.MONGO_URL" = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
 
-  catalogue.prod.DOCUMENTDB = { type = "String", value = "true"}
+  "catalogue.prod.DOCUMENTDB" = { type = "String", value = "true"}
 
 
 
