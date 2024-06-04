@@ -15,6 +15,7 @@
       - { job_name: "user", repo_name: "https://github.com/abhijeet4022/user.git", folder_name: "CI-Pipeline"}
       - { job_name: "shipping", repo_name: "https://github.com/abhijeet4022/shipping.git", folder_name: "CI-Pipeline"}
       - { job_name: "payment", repo_name: "https://github.com/abhijeet4022/payment.git", folder_name: "CI-Pipeline"}
+      - { job_name: "roboshop-init-cont", repo_name: "https://github.com/abhijeet4022/roboshop-init-cont", folder_name: "CI-Pipeline"}
     sjob:
       - { job_name: "roboshop-terraform", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "infra-jobs", jenkinsfile: "Terraform-RoboShop/roboshop-terraform"}
       - { job_name: "app-deployment", repo_name: "https://github.com/abhijeet4022/DevOps-RoboShop.git", folder_name: "App-Deployment", jenkinsfile: "Ansible-RoboShop"}
