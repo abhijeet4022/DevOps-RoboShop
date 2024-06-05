@@ -231,6 +231,7 @@ module "eks" {
   tags = var.tags
 }
 
+# Security group 443 port opening for EKS to access EKS from workstation
 resource "aws_security_group_rule" "https-to-eks-from-workstation" {
   from_port         = 443
   protocol          = "tcp"
@@ -241,3 +242,54 @@ resource "aws_security_group_rule" "https-to-eks-from-workstation" {
 }
 
 # security_group_id = module.eks.cluster_security_group_id  -- This cluster_security_group_id will defined in main module
+
+# IAM PolicyFor EKS.
+resource "aws_iam_role" "eks-ssm" {
+  name = "${var.env}-eks-ssm-ro"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "${module.eks.oidc_provider_arn}"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "${module.eks.oidc_provider}:aud" : "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+
+  inline_policy {
+    name = "${var.env}-eks-ssm-ro"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Sid" : "VisualEditor0",
+          "Effect" : "Allow",
+          "Action" : [
+            "kms:Decrypt",
+            "ssm:GetParameterHistory",
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter"
+          ],
+          "Resource" : "*"
+        },
+        {
+          "Sid" : "VisualEditor1",
+          "Effect" : "Allow",
+          "Action" : "ssm:DescribeParameters",
+          "Resource" : "*"
+        }
+      ]
+    })
+  }
+
+}
