@@ -124,13 +124,15 @@ parameters = {
 
   # Aurora_MySQL
   "rds.prod.master_username" = { type = "String", value = "devadmin" }
+  "rds.prod.master_password" = { type = "SecureString", value = "roboshop1234" }
   "rds.prod.database_name"   = { type = "String", value = "dummy" }
+  "rds.prod.endpoint"     = {
+    type = "String", value = "prod-aurora-mysql-rds-cluster.cluster-c90w68i6u5b5.us-east-1.rds.amazonaws.com"
+  }
 
   # DocumentDB
   "docdb.prod.master_password" = { type = "SecureString", value = "roboshop1234" }
 
-  # Aurora_MySQL
-  "rds.prod.master_password" = { type = "SecureString", value = "roboshop1234" }
 
   #ElasticSearch
   "elasticsearch.username" = { type = "String", value = "elastic" }
@@ -160,11 +162,16 @@ parameters = {
 
 
   # Parameter for Containers.
-  "catalogue.prod.MONGO_URL" = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
-  "catalogue.prod.DOCUMENTDB" = { type = "String", value = "true"}
-  "user.prod.MONGO_URL" = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/user?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
-  "user.prod.DOCUMENTDB" = { type = "String", value = "true"}
-
+  "catalogue.prod.MONGO_URL" = {
+    type  = "SecureString",
+    value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+  }
+  "catalogue.prod.DOCUMENTDB" = { type = "String", value = "true" }
+  "user.prod.MONGO_URL"       = {
+    type  = "SecureString",
+    value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/user?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+  }
+  "user.prod.DOCUMENTDB" = { type = "String", value = "true" }
 
 
 }
