@@ -96,7 +96,8 @@ parameters = {
   "cart.prod.REDIS_HOST" = {
     type = "String", value = "prod-redis-elasticache-cluster.7lakuq.0001.use1.cache.amazonaws.com"
   }
-  "cart.prod.CATALOGUE_HOST" = { type = "String", value = "catalogue-prod.learntechnology.cloud" }
+  "cart.prod.CATALOGUE_HOST" = { type = "String", value = "catalogue" }
+  #"cart.prod.CATALOGUE_HOST" = { type = "String", value = "catalogue-prod.learntechnology.cloud" }
   "cart.prod.CATALOGUE_PORT" = { type = "String", value = 80 }
 
 
@@ -158,10 +159,11 @@ parameters = {
   "payment.prod.appVersion"   = { type = "String", value = "1.0.0" }
 
 
-  # Parameter for Init Container
+  # Parameter for Containers.
   "catalogue.prod.MONGO_URL" = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
-
   "catalogue.prod.DOCUMENTDB" = { type = "String", value = "true"}
+  "user.prod.MONGO_URL" = { type = "SecureString", value = "mongodb://docadmin:roboshop1234@prod-docdb-cluster.cluster-c90w68i6u5b5.us-east-1.docdb.amazonaws.com:27017/user?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"}
+  "user.prod.DOCUMENTDB" = { type = "String", value = "true"}
 
 
 
