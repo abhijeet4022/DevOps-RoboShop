@@ -102,16 +102,19 @@ parameters = {
 
 
   # Shipping
-  "shipping.prod.CART_ENDPOINT" = { type = "String", value = "cart-prod.learntechnology.cloud:80" }
+  #"shipping.prod.CART_ENDPOINT" = { type = "String", value = "cart-prod.learntechnology.cloud:80" }
+  "shipping.prod.CART_ENDPOINT" = { type = "String", value = "cart:80" }
   "shipping.prod.DB_HOST"       = {
     type = "String", value = "prod-aurora-mysql-rds-cluster.cluster-c90w68i6u5b5.us-east-1.rds.amazonaws.com"
   }
 
 
   # Payment
-  "payment.prod.CART_HOST" = { type = "String", value = "cart-prod.learntechnology.cloud" }
+  #"payment.prod.CART_HOST" = { type = "String", value = "cart-prod.learntechnology.cloud" }
+  "payment.prod.CART_HOST" = { type = "String", value = "cart" }
   "payment.prod.CART_PORT" = { type = "String", value = 80 }
-  "payment.prod.USER_HOST" = { type = "String", value = "user-prod.learntechnology.cloud" }
+  #"payment.prod.USER_HOST" = { type = "String", value = "user-prod.learntechnology.cloud" }
+  "payment.prod.USER_HOST" = { type = "String", value = "user" }
   "payment.prod.USER_PORT" = { type = "String", value = 80 }
   "payment.prod.AMQP_HOST" = { type = "String", value = "rabbitmq-prod.learntechnology.cloud" }
 
